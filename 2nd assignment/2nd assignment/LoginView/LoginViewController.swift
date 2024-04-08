@@ -46,8 +46,14 @@ class LoginViewController: UIViewController {
             welcomeVC.welcomeView.welcomeLabel.text = "\(nickName)님 \n 반가워요!"
             navigationController?.pushViewController(welcomeVC, animated: true)
         } else {
-            
+            toMakeNickNameAlert()
         }
+    }
+    
+    private func toMakeNickNameAlert() {
+        let alert = UIAlertController(title: nil, message: "닉네임을 생성하세요", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        self.present(alert, animated: true)
     }
     
     private func setButtonAttribute(button: UIButton, isEnabled: Bool, backgroundColor: UIColor?, titleColor: UIColor) {
