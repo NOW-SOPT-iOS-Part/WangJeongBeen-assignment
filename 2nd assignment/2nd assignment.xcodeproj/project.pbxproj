@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2109AB5B2BC44EB4006EE1E5 /* CreateNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2109AB5A2BC44EB4006EE1E5 /* CreateNickNameView.swift */; };
+		217DAD2D2BC44DD20024BEC2 /* CreateNickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217DAD2C2BC44DD20024BEC2 /* CreateNickNameViewController.swift */; };
 		218988592BC281510034244C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218988582BC281510034244C /* AppDelegate.swift */; };
 		2189885B2BC281510034244C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189885A2BC281510034244C /* SceneDelegate.swift */; };
 		2189885D2BC281510034244C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189885C2BC281510034244C /* LoginViewController.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2109AB5A2BC44EB4006EE1E5 /* CreateNickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNickNameView.swift; sourceTree = "<group>"; };
+		217DAD2C2BC44DD20024BEC2 /* CreateNickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNickNameViewController.swift; sourceTree = "<group>"; };
 		218988552BC281510034244C /* 2nd assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "2nd assignment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218988582BC281510034244C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2189885A2BC281510034244C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -49,6 +53,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		217DAD2E2BC44DE50024BEC2 /* CreateNickNameView */ = {
+			isa = PBXGroup;
+			children = (
+				217DAD2C2BC44DD20024BEC2 /* CreateNickNameViewController.swift */,
+				2109AB5A2BC44EB4006EE1E5 /* CreateNickNameView.swift */,
+			);
+			path = CreateNickNameView;
+			sourceTree = "<group>";
+		};
 		2189884C2BC281500034244C = {
 			isa = PBXGroup;
 			children = (
@@ -73,6 +86,7 @@
 				2189887E2BC2AF330034244C /* Extensions */,
 				218988772BC2ACA10034244C /* WelcomeView */,
 				218988722BC2822D0034244C /* LoginView */,
+				217DAD2E2BC44DE50024BEC2 /* CreateNickNameView */,
 				218988612BC281520034244C /* Assets.xcassets */,
 				218988632BC281520034244C /* LaunchScreen.storyboard */,
 				218988662BC281520034244C /* Info.plist */,
@@ -185,10 +199,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2109AB5B2BC44EB4006EE1E5 /* CreateNickNameView.swift in Sources */,
 				2189885D2BC281510034244C /* LoginViewController.swift in Sources */,
 				218988792BC2ACB80034244C /* WelcomeView.swift in Sources */,
 				218988762BC2AC9B0034244C /* WelcomeViewController.swift in Sources */,
 				218988592BC281510034244C /* AppDelegate.swift in Sources */,
+				217DAD2D2BC44DD20024BEC2 /* CreateNickNameViewController.swift in Sources */,
 				218988742BC2825F0034244C /* LoginView.swift in Sources */,
 				2189887D2BC2AF220034244C /* UIButton+Extension.swift in Sources */,
 				2189885B2BC281510034244C /* SceneDelegate.swift in Sources */,

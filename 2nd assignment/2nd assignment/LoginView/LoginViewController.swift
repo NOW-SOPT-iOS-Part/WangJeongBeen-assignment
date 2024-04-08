@@ -10,7 +10,9 @@ import UIKit
 class LoginViewController: UIViewController {
     
     let loginView = LoginView()
-    lazy var id = ""
+    
+    var id: String?
+    var nickName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,6 +21,7 @@ class LoginViewController: UIViewController {
         view = loginView
         
         setDelegate()
+        createNickName()
     }
     
     // MARK: - set loginButton
@@ -39,14 +42,38 @@ class LoginViewController: UIViewController {
     
     @objc func pushWelcomeVC() {
         let welcomeVC = WelcomeViewController()
-        welcomeVC.welcomeView.welcomeLabel.text = id
-        navigationController?.pushViewController(welcomeVC, animated: true)
+        if let nickName = nickName {
+            welcomeVC.welcomeView.welcomeLabel.text = "\(nickName)님 \n 반가워요!"
+            navigationController?.pushViewController(welcomeVC, animated: true)
+        } else {
+            
+        }
     }
     
     private func setButtonAttribute(button: UIButton, isEnabled: Bool, backgroundColor: UIColor?, titleColor: UIColor) {
         button.isEnabled = isEnabled
         button.backgroundColor = backgroundColor
         button.setTitleColor(titleColor, for: .normal)
+    }
+    
+    // MARK: - set createNickName
+    private func createNickName() {
+        loginView.createNickNameButton.addTarget(self, action: #selector(showModalView), for: .touchUpInside)
+    }
+    
+    @objc private func showModalView() {
+        let createNickNameVC = CreateNickNameViewController()
+        
+        if let sheet = createNickNameVC.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+        }
+        
+        createNickNameVC.dataBind = { [weak self] nickName in
+            guard let self = self else { return }
+            self.nickName = nickName
+        }
+        
+        self.present(createNickNameVC, animated: true)
     }
     
     // MARK: - additional setting
@@ -125,7 +152,7 @@ extension LoginViewController: UITextFieldDelegate {
         loginView.idTextField.text = ""
         textFieldDidChangeSelection(loginView.idTextField)
     }
-
+    
     @objc func tappedClearButtonForPW() {
         loginView.passwordField.text = ""
         textFieldDidChangeSelection(loginView.passwordField)

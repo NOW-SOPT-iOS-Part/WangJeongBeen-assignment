@@ -39,6 +39,8 @@ class WelcomeView: UIView {
         
         welcomeLabel.do {
             $0.text = "saefdsafos"
+            $0.numberOfLines = 2
+            $0.textAlignment = .center
             $0.font = .boldSystemFont(ofSize: 25)
             $0.textColor = .white
         }
