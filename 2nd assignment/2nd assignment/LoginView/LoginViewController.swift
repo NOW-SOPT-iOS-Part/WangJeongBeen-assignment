@@ -11,7 +11,6 @@ class LoginViewController: UIViewController {
     
     let loginView = LoginView()
     
-    var id: String?
     var nickName: String?
     
     override func viewDidLoad() {
@@ -26,21 +25,29 @@ class LoginViewController: UIViewController {
     
     // MARK: - set loginButton
     private func setLoginButton() {
-        let loginButton = loginView.loginButton
-        loginButton.addTarget(self, action: #selector(pushWelcomeVC), for: .touchUpInside)
-        
-        if let id = loginView.idTextField.text,
-           let password = loginView.passwordField.text {
-            if !id.isEmpty && !password.isEmpty {
-                self.id = id
-                setButtonAttribute(button: loginButton, isEnabled: true, backgroundColor: .red, titleColor: .white)
-            } else {
-                setButtonAttribute(button: loginButton, isEnabled: false, backgroundColor: nil, titleColor: .lightGray)
-            }
-        }
+        loginView.loginButton.addTarget(self, action: #selector(tappedLoginButton), for: .touchUpInside)
+        updateLoginButtonState()
     }
     
-    @objc func pushWelcomeVC() {
+    private func updateLoginButtonState() {
+        let id = loginView.idTextField.text ?? ""
+        let password = loginView.passwordField.text ?? ""
+        let isEnabled = !id.isEmpty && !password.isEmpty
+        setButtonAttribute(button: loginView.loginButton,
+                           isEnabled: isEnabled,
+                           backgroundColor: isEnabled ? .red : nil,
+                           titleColor: isEnabled ? .white : .lightGray
+        )
+    }
+    
+    @objc func tappedLoginButton() {
+        guard let idText = loginView.idTextField.text,
+              isValidEmail(emailID: idText) else {
+            loginView.warningMessage.isHidden = false
+            highlightBorder(loginView.idTextField, color: .red)
+            return
+        }
+        
         let welcomeVC = WelcomeViewController()
         if let nickName = nickName {
             welcomeVC.welcomeView.welcomeLabel.text = "\(nickName)님 \n 반가워요!"
@@ -48,12 +55,6 @@ class LoginViewController: UIViewController {
         } else {
             toMakeNickNameAlert()
         }
-    }
-    
-    private func toMakeNickNameAlert() {
-        let alert = UIAlertController(title: nil, message: "닉네임을 생성하세요", preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "확인", style: .default))
-        self.present(alert, animated: true)
     }
     
     private func setButtonAttribute(button: UIButton, isEnabled: Bool, backgroundColor: UIColor?, titleColor: UIColor) {
@@ -82,6 +83,12 @@ class LoginViewController: UIViewController {
         self.present(createNickNameVC, animated: true)
     }
     
+    private func toMakeNickNameAlert() {
+        let alert = UIAlertController(title: nil, message: "닉네임을 생성하세요", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "확인", style: .default))
+        self.present(alert, animated: true)
+    }
+    
     // MARK: - additional setting
     private func setDelegate() {
         loginView.idTextField.delegate = self
@@ -93,8 +100,7 @@ class LoginViewController: UIViewController {
 extension LoginViewController: UITextFieldDelegate {
     //textField 클릭하면 테두리 변경
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.layer.borderWidth = 1
-        textField.layer.borderColor = UIColor.white.cgColor
+        highlightBorder(textField, color: .white)
     }
     
     //textField editing 끝나면 테두리 원상태
@@ -162,5 +168,16 @@ extension LoginViewController: UITextFieldDelegate {
     @objc func tappedClearButtonForPW() {
         loginView.passwordField.text = ""
         textFieldDidChangeSelection(loginView.passwordField)
+    }
+    
+    private func isValidEmail(emailID: String) -> Bool {
+        let emailRegEx = "[A-Za-z0-9]+@[A-Za-z0-9]+\\.[A-Za-z]{2,64}"
+        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: emailID)
+    }
+    
+    func highlightBorder(_ textField: UITextField, color: UIColor) {
+        textField.layer.borderWidth = 1
+        textField.layer.borderColor = color.cgColor
     }
 }
