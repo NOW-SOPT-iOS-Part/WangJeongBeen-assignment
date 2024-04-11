@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2109AB5B2BC44EB4006EE1E5 /* CreateNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2109AB5A2BC44EB4006EE1E5 /* CreateNickNameView.swift */; };
+		217CA54F2BC7AB4500497FA0 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217CA54E2BC7AB4500497FA0 /* UIView+Extension.swift */; };
 		217DAD2D2BC44DD20024BEC2 /* CreateNickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217DAD2C2BC44DD20024BEC2 /* CreateNickNameViewController.swift */; };
 		218988592BC281510034244C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218988582BC281510034244C /* AppDelegate.swift */; };
 		2189885B2BC281510034244C /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189885A2BC281510034244C /* SceneDelegate.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		2109AB5A2BC44EB4006EE1E5 /* CreateNickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNickNameView.swift; sourceTree = "<group>"; };
+		217CA54E2BC7AB4500497FA0 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		217DAD2C2BC44DD20024BEC2 /* CreateNickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNickNameViewController.swift; sourceTree = "<group>"; };
 		218988552BC281510034244C /* 2nd assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "2nd assignment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		218988582BC281510034244C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			children = (
 				2189887A2BC2AE860034244C /* UITextField+Extension.swift */,
 				2189887C2BC2AF220034244C /* UIButton+Extension.swift */,
+				217CA54E2BC7AB4500497FA0 /* UIView+Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -199,6 +202,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				217CA54F2BC7AB4500497FA0 /* UIView+Extension.swift in Sources */,
 				2109AB5B2BC44EB4006EE1E5 /* CreateNickNameView.swift in Sources */,
 				2189885D2BC281510034244C /* LoginViewController.swift in Sources */,
 				218988792BC2ACB80034244C /* WelcomeView.swift in Sources */,

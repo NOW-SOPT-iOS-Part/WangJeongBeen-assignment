@@ -17,7 +17,7 @@ class CreateNickNameViewController: UIViewController {
         super.viewDidLoad()
         
         view = createNickNameView
-        view.layer.cornerRadius = 30
+        view.roundCorners(cornerRadius: 15, maskedCorners: [.layerMinXMinYCorner, .layerMaxXMinYCorner])
         
         setSaveButton()
     }
