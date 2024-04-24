@@ -48,9 +48,12 @@ class CreateNickNameView: UIView {
         
         saveButton.do {
             $0.setTitle("저장하기", for: .normal)
-            $0.setTitleColor(.white, for: .normal)
-            $0.backgroundColor = .red
+            $0.setTitleColor(.lightGray, for: .normal)
+            $0.backgroundColor = .white
+            $0.layer.borderColor = UIColor.black.cgColor
+            $0.layer.borderWidth = 0.5
             $0.layer.cornerRadius = 15
+            $0.isEnabled = false
         }
     }
     
