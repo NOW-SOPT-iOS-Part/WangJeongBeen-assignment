@@ -16,11 +16,12 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .black
-        view = loginView
-        
         setDelegate()
         createNickName()
+    }
+    
+    override func loadView() {
+        view = loginView
     }
     
     // MARK: - set loginButton

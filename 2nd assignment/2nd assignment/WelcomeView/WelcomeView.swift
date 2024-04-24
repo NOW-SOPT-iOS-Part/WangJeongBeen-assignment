@@ -30,6 +30,8 @@ class WelcomeView: UIView {
     
     // MARK: - set components attributes
     private func setUI() {
+        backgroundColor = .black
+        
         [imageView, welcomeLabel, toMainButton]
             .forEach { addSubview($0) }
         

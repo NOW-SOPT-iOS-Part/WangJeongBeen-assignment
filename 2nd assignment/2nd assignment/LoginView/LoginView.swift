@@ -42,6 +42,8 @@ class LoginView: UIView {
     
     // MARK: - set components attributes
     private func setUI() {
+        backgroundColor = .black
+        
         [findId, forResizeView, findPassword]
             .forEach { findStackView.addArrangedSubview($0) }
         

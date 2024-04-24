@@ -14,9 +14,11 @@ class WelcomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .black
-        view = welcomeView
         goToMain()
+    }
+    
+    override func loadView() {
+        view = welcomeView
     }
     
     // MARK: - set toMainButton
