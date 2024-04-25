@@ -144,8 +144,11 @@ extension LoginViewController: UITextFieldDelegate {
     }
     
     private func updateButtonVisibility(id: String?, password: String?) {
-        let isIdEmpty = id?.isEmpty ?? true
-        let isPasswordEmpty = password?.isEmpty ?? true
+        guard let id = id else { return }
+        guard let password = password else { return }
+        
+        let isIdEmpty = id.isEmpty
+        let isPasswordEmpty = password.isEmpty
         
         loginView.clearTextButtonForID.isHidden = isIdEmpty
         loginView.clearTextButtonForPW.isHidden = isPasswordEmpty
