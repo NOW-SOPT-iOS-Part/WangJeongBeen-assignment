@@ -18,6 +18,8 @@ class LoginViewController: UIViewController {
         
         setDelegate()
         createNickName()
+        setAdditionalTextFieldSetting()
+        setLoginButton()
     }
     
     override func loadView() {
@@ -27,18 +29,6 @@ class LoginViewController: UIViewController {
     // MARK: - set loginButton
     private func setLoginButton() {
         loginView.loginButton.addTarget(self, action: #selector(tappedLoginButton), for: .touchUpInside)
-        updateLoginButtonState()
-    }
-    
-    private func updateLoginButtonState() {
-        let id = loginView.idTextField.text ?? ""
-        let password = loginView.passwordField.text ?? ""
-        let isEnabled = !id.isEmpty && !password.isEmpty
-        setButtonAttribute(button: loginView.loginButton,
-                           isEnabled: isEnabled,
-                           backgroundColor: isEnabled ? .red : nil,
-                           titleColor: isEnabled ? .white : .lightGray
-        )
     }
     
     @objc func tappedLoginButton() {
@@ -56,6 +46,17 @@ class LoginViewController: UIViewController {
         } else {
             toMakeNickNameAlert()
         }
+    }
+    
+    private func updateLoginButtonState() {
+        let id = loginView.idTextField.text ?? ""
+        let password = loginView.passwordField.text ?? ""
+        let isEnabled = !id.isEmpty && !password.isEmpty
+        setButtonAttribute(button: loginView.loginButton,
+                           isEnabled: isEnabled,
+                           backgroundColor: isEnabled ? .red : nil,
+                           titleColor: isEnabled ? .white : .lightGray
+        )
     }
     
     private func setButtonAttribute(button: UIButton, isEnabled: Bool, backgroundColor: UIColor?, titleColor: UIColor) {
@@ -95,6 +96,16 @@ class LoginViewController: UIViewController {
         loginView.idTextField.delegate = self
         loginView.passwordField.delegate = self
     }
+    
+    private func setAdditionalTextFieldSetting() {
+        let eyeButton = loginView.passwordEyeButton
+        let clearButtonForID = loginView.clearTextButtonForID
+        let clearButtonForPW = loginView.clearTextButtonForPW
+        
+        clearButtonForID.addTarget(self, action: #selector(tappedClearButtonForID), for: .touchUpInside)
+        clearButtonForPW.addTarget(self, action: #selector(tappedClearButtonForPW), for: .touchUpInside)
+        eyeButton.addTarget(self, action: #selector(tappedEyeButton), for: .touchUpInside)
+    }
 }
 
 // MARK: - set textField
@@ -126,17 +137,10 @@ extension LoginViewController: UITextFieldDelegate {
     private func setAdditionalButton() {
         let idTextfield = loginView.idTextField
         let pwTextfield = loginView.passwordField
-        let eyeButton = loginView.passwordEyeButton
-        let clearButtonForID = loginView.clearTextButtonForID
-        let clearButtonForPW = loginView.clearTextButtonForPW
         
         updateButtonVisibility(id: idTextfield.text, password: pwTextfield.text)
         
-        clearButtonForID.addTarget(self, action: #selector(tappedClearButtonForID), for: .touchUpInside)
-        clearButtonForPW.addTarget(self, action: #selector(tappedClearButtonForPW), for: .touchUpInside)
-        eyeButton.addTarget(self, action: #selector(tappedEyeButton), for: .touchUpInside)
-        
-        setLoginButton()
+        updateLoginButtonState()
     }
     
     private func updateButtonVisibility(id: String?, password: String?) {
