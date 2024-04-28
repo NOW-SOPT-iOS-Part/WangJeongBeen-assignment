@@ -42,6 +42,8 @@ class LoginViewController: UIViewController {
         let welcomeVC = WelcomeViewController()
         if let nickName = nickName {
             welcomeVC.welcomeView.welcomeLabel.text = "\(nickName)님 \n 반가워요!"
+            navigationController?.navigationBar.tintColor = .white
+            navigationController?.navigationBar.topItem?.title = ""
             navigationController?.pushViewController(welcomeVC, animated: true)
         } else {
             toMakeNickNameAlert()

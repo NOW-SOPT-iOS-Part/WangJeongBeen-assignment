@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2107318E2BDA3DA8004C1E33 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2107318D2BDA3DA8004C1E33 /* HomeViewController.swift */; };
+		210731912BDA3DE7004C1E33 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210731902BDA3DE7004C1E33 /* HomeView.swift */; };
 		2109AB5B2BC44EB4006EE1E5 /* CreateNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2109AB5A2BC44EB4006EE1E5 /* CreateNickNameView.swift */; };
 		217CA54F2BC7AB4500497FA0 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217CA54E2BC7AB4500497FA0 /* UIView+Extension.swift */; };
 		217DAD2D2BC44DD20024BEC2 /* CreateNickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217DAD2C2BC44DD20024BEC2 /* CreateNickNameViewController.swift */; };
@@ -22,9 +24,15 @@
 		218988792BC2ACB80034244C /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218988782BC2ACB80034244C /* WelcomeView.swift */; };
 		2189887B2BC2AE860034244C /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189887A2BC2AE860034244C /* UITextField+Extension.swift */; };
 		2189887D2BC2AF220034244C /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189887C2BC2AF220034244C /* UIButton+Extension.swift */; };
+		21AF35F32BDA523C001756F8 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF35F22BDA523C001756F8 /* MainCell.swift */; };
+		21AF35F62BDA5289001756F8 /* MustSeenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF35F52BDA5289001756F8 /* MustSeenCell.swift */; };
+		21AF35F82BDA52A4001756F8 /* PopularLiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF35F72BDA52A4001756F8 /* PopularLiveCell.swift */; };
+		21AF35FA2BDA52D4001756F8 /* ADCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF35F92BDA52D4001756F8 /* ADCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2107318D2BDA3DA8004C1E33 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		210731902BDA3DE7004C1E33 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		2109AB5A2BC44EB4006EE1E5 /* CreateNickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNickNameView.swift; sourceTree = "<group>"; };
 		217CA54E2BC7AB4500497FA0 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		217DAD2C2BC44DD20024BEC2 /* CreateNickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNickNameViewController.swift; sourceTree = "<group>"; };
@@ -40,6 +48,10 @@
 		218988782BC2ACB80034244C /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		2189887A2BC2AE860034244C /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		2189887C2BC2AF220034244C /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		21AF35F22BDA523C001756F8 /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
+		21AF35F52BDA5289001756F8 /* MustSeenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustSeenCell.swift; sourceTree = "<group>"; };
+		21AF35F72BDA52A4001756F8 /* PopularLiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularLiveCell.swift; sourceTree = "<group>"; };
+		21AF35F92BDA52D4001756F8 /* ADCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +67,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2107318F2BDA3DB3004C1E33 /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				2107318D2BDA3DA8004C1E33 /* HomeViewController.swift */,
+				210731902BDA3DE7004C1E33 /* HomeView.swift */,
+				21AF35F42BDA524B001756F8 /* Cell */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
 		217DAD2E2BC44DE50024BEC2 /* CreateNickNameView */ = {
 			isa = PBXGroup;
 			children = (
@@ -86,9 +108,9 @@
 				218988582BC281510034244C /* AppDelegate.swift */,
 				2189885A2BC281510034244C /* SceneDelegate.swift */,
 				2189887E2BC2AF330034244C /* Extensions */,
-				218988772BC2ACA10034244C /* WelcomeView */,
 				218988722BC2822D0034244C /* LoginView */,
-				217DAD2E2BC44DE50024BEC2 /* CreateNickNameView */,
+				218988772BC2ACA10034244C /* WelcomeView */,
+				2107318F2BDA3DB3004C1E33 /* Home */,
 				218988612BC281520034244C /* Assets.xcassets */,
 				218988632BC281520034244C /* LaunchScreen.storyboard */,
 				218988662BC281520034244C /* Info.plist */,
@@ -101,6 +123,7 @@
 			children = (
 				2189885C2BC281510034244C /* LoginViewController.swift */,
 				218988732BC2825F0034244C /* LoginView.swift */,
+				217DAD2E2BC44DE50024BEC2 /* CreateNickNameView */,
 			);
 			path = LoginView;
 			sourceTree = "<group>";
@@ -122,6 +145,17 @@
 				217CA54E2BC7AB4500497FA0 /* UIView+Extension.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		21AF35F42BDA524B001756F8 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				21AF35F22BDA523C001756F8 /* MainCell.swift */,
+				21AF35F52BDA5289001756F8 /* MustSeenCell.swift */,
+				21AF35F72BDA52A4001756F8 /* PopularLiveCell.swift */,
+				21AF35F92BDA52D4001756F8 /* ADCell.swift */,
+			);
+			path = Cell;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,15 +238,21 @@
 			files = (
 				217CA54F2BC7AB4500497FA0 /* UIView+Extension.swift in Sources */,
 				2109AB5B2BC44EB4006EE1E5 /* CreateNickNameView.swift in Sources */,
+				210731912BDA3DE7004C1E33 /* HomeView.swift in Sources */,
+				21AF35F82BDA52A4001756F8 /* PopularLiveCell.swift in Sources */,
 				2189885D2BC281510034244C /* LoginViewController.swift in Sources */,
 				218988792BC2ACB80034244C /* WelcomeView.swift in Sources */,
 				218988762BC2AC9B0034244C /* WelcomeViewController.swift in Sources */,
 				218988592BC281510034244C /* AppDelegate.swift in Sources */,
 				217DAD2D2BC44DD20024BEC2 /* CreateNickNameViewController.swift in Sources */,
+				21AF35F32BDA523C001756F8 /* MainCell.swift in Sources */,
 				218988742BC2825F0034244C /* LoginView.swift in Sources */,
+				21AF35F62BDA5289001756F8 /* MustSeenCell.swift in Sources */,
 				2189887D2BC2AF220034244C /* UIButton+Extension.swift in Sources */,
 				2189885B2BC281510034244C /* SceneDelegate.swift in Sources */,
+				21AF35FA2BDA52D4001756F8 /* ADCell.swift in Sources */,
 				2189887B2BC2AE860034244C /* UITextField+Extension.swift in Sources */,
+				2107318E2BDA3DA8004C1E33 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
