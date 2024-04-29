@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2107318E2BDA3DA8004C1E33 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2107318D2BDA3DA8004C1E33 /* HomeViewController.swift */; };
 		210731912BDA3DE7004C1E33 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 210731902BDA3DE7004C1E33 /* HomeView.swift */; };
+		21085A052BDF56AC000DE5AB /* MainContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21085A042BDF56AB000DE5AB /* MainContent.swift */; };
 		2109AB5B2BC44EB4006EE1E5 /* CreateNickNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2109AB5A2BC44EB4006EE1E5 /* CreateNickNameView.swift */; };
 		217CA54F2BC7AB4500497FA0 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217CA54E2BC7AB4500497FA0 /* UIView+Extension.swift */; };
 		217DAD2D2BC44DD20024BEC2 /* CreateNickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217DAD2C2BC44DD20024BEC2 /* CreateNickNameViewController.swift */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		2107318D2BDA3DA8004C1E33 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		210731902BDA3DE7004C1E33 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		21085A042BDF56AB000DE5AB /* MainContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainContent.swift; sourceTree = "<group>"; };
 		2109AB5A2BC44EB4006EE1E5 /* CreateNickNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNickNameView.swift; sourceTree = "<group>"; };
 		217CA54E2BC7AB4500497FA0 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		217DAD2C2BC44DD20024BEC2 /* CreateNickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNickNameViewController.swift; sourceTree = "<group>"; };
@@ -73,8 +75,17 @@
 				2107318D2BDA3DA8004C1E33 /* HomeViewController.swift */,
 				210731902BDA3DE7004C1E33 /* HomeView.swift */,
 				21AF35F42BDA524B001756F8 /* Cell */,
+				21085A062BDF56B0000DE5AB /* Model */,
 			);
 			path = Home;
+			sourceTree = "<group>";
+		};
+		21085A062BDF56B0000DE5AB /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				21085A042BDF56AB000DE5AB /* MainContent.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		217DAD2E2BC44DE50024BEC2 /* CreateNickNameView */ = {
@@ -238,6 +249,7 @@
 			files = (
 				217CA54F2BC7AB4500497FA0 /* UIView+Extension.swift in Sources */,
 				2109AB5B2BC44EB4006EE1E5 /* CreateNickNameView.swift in Sources */,
+				21085A052BDF56AC000DE5AB /* MainContent.swift in Sources */,
 				210731912BDA3DE7004C1E33 /* HomeView.swift in Sources */,
 				21AF35F82BDA52A4001756F8 /* PopularLiveCell.swift in Sources */,
 				2189885D2BC281510034244C /* LoginViewController.swift in Sources */,

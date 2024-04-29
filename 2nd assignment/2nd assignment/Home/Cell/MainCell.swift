@@ -13,11 +13,13 @@ class MainCell: UICollectionViewCell {
     
     // MARK: - properties
     private let contentImage = UIImageView()
-    let pageControl = UIPageControl()
     
     // MARK: - initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        setUI()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -31,18 +33,18 @@ class MainCell: UICollectionViewCell {
         contentImage.do {
             $0.contentMode = .scaleAspectFit
         }
-        
-        pageControl.do {
-            $0.numberOfPages = 8
-            $0.pageIndicatorTintColor = UIColor(named: "Gray3")
-            $0.currentPageIndicatorTintColor = UIColor(named: "Gray1")
-        }
     }
     
     private func setLayout() {
         contentImage.snp.makeConstraints {
             $0.top.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(450)
+            $0.height.equalTo(500)
         }
+    }
+}
+
+extension MainCell {
+    func dataBind(_ content: MainContent) {
+        contentImage.image = content.contentImage.withRenderingMode(.alwaysOriginal)
     }
 }

@@ -21,6 +21,7 @@ class HomeView: UIView {
         super.init(frame: frame)
         
         setUI()
+        setLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -52,5 +53,9 @@ class HomeView: UIView {
             $0.register(PopularLiveCell.self, forCellWithReuseIdentifier: "PopularLiveCell")
             $0.register(ADCell.self, forCellWithReuseIdentifier: "ADCell")
         }
+    }
+    
+    private func setLayout() {
+        collectionView.snp.makeConstraints { $0.edges.equalToSuperview() }
     }
 }
