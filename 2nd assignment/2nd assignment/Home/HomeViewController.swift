@@ -115,7 +115,7 @@ class HomeViewController: UIViewController {
                 cell.dataBind(mainContent)
                 return cell
             case let mustSeenContent as MustSeenContent:
-                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MustSeenCell", for: indexPath) as? MustSeenCell else { return UICollectionViewCell() }
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeriesContentCell", for: indexPath) as? SeriesContentCell else { return UICollectionViewCell() }
                 cell.dataBind(mustSeenContent)
                 return cell
             case let popularLiveContent as PopularLiveContent:

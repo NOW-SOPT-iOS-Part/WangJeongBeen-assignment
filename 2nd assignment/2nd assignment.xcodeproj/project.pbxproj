@@ -32,7 +32,7 @@
 		2189887B2BC2AE860034244C /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189887A2BC2AE860034244C /* UITextField+Extension.swift */; };
 		2189887D2BC2AF220034244C /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189887C2BC2AF220034244C /* UIButton+Extension.swift */; };
 		21AF35F32BDA523C001756F8 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF35F22BDA523C001756F8 /* MainCell.swift */; };
-		21AF35F62BDA5289001756F8 /* MustSeenCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF35F52BDA5289001756F8 /* MustSeenCell.swift */; };
+		21AF35F62BDA5289001756F8 /* SeriesContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF35F52BDA5289001756F8 /* SeriesContentCell.swift */; };
 		21AF35F82BDA52A4001756F8 /* PopularLiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF35F72BDA52A4001756F8 /* PopularLiveCell.swift */; };
 		21AF35FA2BDA52D4001756F8 /* ADCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF35F92BDA52D4001756F8 /* ADCell.swift */; };
 /* End PBXBuildFile section */
@@ -63,7 +63,7 @@
 		2189887A2BC2AE860034244C /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		2189887C2BC2AF220034244C /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		21AF35F22BDA523C001756F8 /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
-		21AF35F52BDA5289001756F8 /* MustSeenCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MustSeenCell.swift; sourceTree = "<group>"; };
+		21AF35F52BDA5289001756F8 /* SeriesContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesContentCell.swift; sourceTree = "<group>"; };
 		21AF35F72BDA52A4001756F8 /* PopularLiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularLiveCell.swift; sourceTree = "<group>"; };
 		21AF35F92BDA52D4001756F8 /* ADCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -180,7 +180,7 @@
 			children = (
 				21AF35F22BDA523C001756F8 /* MainCell.swift */,
 				213B762F2BDF8DAD0022DE39 /* SectionHeader.swift */,
-				21AF35F52BDA5289001756F8 /* MustSeenCell.swift */,
+				21AF35F52BDA5289001756F8 /* SeriesContentCell.swift */,
 				21AF35F72BDA52A4001756F8 /* PopularLiveCell.swift */,
 				21AF35F92BDA52D4001756F8 /* ADCell.swift */,
 			);
@@ -282,7 +282,7 @@
 				21AF35F32BDA523C001756F8 /* MainCell.swift in Sources */,
 				218988742BC2825F0034244C /* LoginView.swift in Sources */,
 				21380B6B2BDF802700691D28 /* MustSeenContent.swift in Sources */,
-				21AF35F62BDA5289001756F8 /* MustSeenCell.swift in Sources */,
+				21AF35F62BDA5289001756F8 /* SeriesContentCell.swift in Sources */,
 				2189887D2BC2AF220034244C /* UIButton+Extension.swift in Sources */,
 				21380B6F2BDF803E00691D28 /* ADContent.swift in Sources */,
 				2189885B2BC281510034244C /* SceneDelegate.swift in Sources */,

@@ -49,7 +49,7 @@ class HomeView: UIView {
         collectionView.do {
             $0.backgroundColor = .black
             $0.register(MainCell.self, forCellWithReuseIdentifier: "MainCell")
-            $0.register(MustSeenCell.self, forCellWithReuseIdentifier: "MustSeenCell")
+            $0.register(SeriesContentCell.self, forCellWithReuseIdentifier: "SeriesContentCell")
             $0.register(PopularLiveCell.self, forCellWithReuseIdentifier: "PopularLiveCell")
             $0.register(ADCell.self, forCellWithReuseIdentifier: "ADCell")
             $0.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")

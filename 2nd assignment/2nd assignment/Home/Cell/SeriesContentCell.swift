@@ -9,7 +9,7 @@ import UIKit
 import SnapKit
 import Then
 
-class MustSeenCell: UICollectionViewCell {
+class SeriesContentCell: UICollectionViewCell {
     
     private let contentImage = UIImageView()
     private let contentName = UILabel()
@@ -48,7 +48,7 @@ class MustSeenCell: UICollectionViewCell {
     }
 }
 
-extension MustSeenCell {
+extension SeriesContentCell {
     func dataBind(_ content: MustSeenContent) {
         contentImage.image = content.contentImage
         contentName.text = content.contentName
