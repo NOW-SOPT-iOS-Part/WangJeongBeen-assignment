@@ -9,9 +9,9 @@ import UIKit
 import SnapKit
 import Then
 
-final class MustSeenHeader: UICollectionReusableView {
+final class SectionHeader: UICollectionReusableView {
     
-    private let mustSeenLabel = UILabel()
+    private let headerTitleLabel = UILabel()
     private let seeAllLabel = UILabel()
     
     override init(frame: CGRect) {
@@ -26,10 +26,9 @@ final class MustSeenHeader: UICollectionReusableView {
     }
     
     private func setUI() {
-        addSubviews(mustSeenLabel, seeAllLabel)
+        addSubviews(headerTitleLabel, seeAllLabel)
         
-        mustSeenLabel.do {
-            $0.text = "티빙에서 꼭 봐야하는 콘텐츠"
+        headerTitleLabel.do {
             $0.font = .boldSystemFont(ofSize: 15)
             $0.textColor = .white
         }
@@ -42,15 +41,21 @@ final class MustSeenHeader: UICollectionReusableView {
     }
     
     private func setLayout() {
-        mustSeenLabel.snp.makeConstraints {
+        headerTitleLabel.snp.makeConstraints {
             $0.leading.equalToSuperview()
             $0.centerY.equalToSuperview()
         }
         
         seeAllLabel.snp.makeConstraints {
             $0.trailing.equalToSuperview().offset(-7)
-            $0.bottom.equalTo(mustSeenLabel)
+            $0.bottom.equalTo(headerTitleLabel)
         }
     }
 
+}
+
+extension SectionHeader {
+    func dataBind(headerTitle: String) {
+        headerTitleLabel.text = headerTitle
+    }
 }

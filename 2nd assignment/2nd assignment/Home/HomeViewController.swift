@@ -16,8 +16,9 @@ class HomeViewController: UIViewController {
     // MARK: - properties
     private let rootView = HomeView()
     private var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>!
-    private var mainContents = MainContent.list
-    private var mustSeenContents = MustSeenContent.list
+    private let mainContents = MainContent.list
+    private let mustSeenContents = MustSeenContent.list
+    private let popularLiveContents = PopularLiveContent.list
     
     // MARK: - initializer
     override func viewDidLoad() {
@@ -69,8 +70,8 @@ class HomeViewController: UIViewController {
                 itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
                 groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.26), heightDimension: .estimated(180))
             case .PopularLive:
-                itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4), heightDimension: .fractionalHeight(1.0))
-                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(80))
+                itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.42), heightDimension: .estimated(120))
             case .AD:
                 itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
                 groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(60))
@@ -83,7 +84,7 @@ class HomeViewController: UIViewController {
             
             if sectionLayoutKind == .Main {
                 section.orthogonalScrollingBehavior = .groupPagingCentered
-            } else if sectionLayoutKind == .MustSeen {
+            } else if sectionLayoutKind == .MustSeen || sectionLayoutKind == .PopularLive {
                 let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(20))
                 let headerSupplementaryItem = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: headerSize,
@@ -112,15 +113,30 @@ class HomeViewController: UIViewController {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MustSeenCell", for: indexPath) as? MustSeenCell else { return UICollectionViewCell() }
                 cell.dataBind(mustSeenContent)
                 return cell
-//                            case let popularLiveContent as PopularLiveContent:
+            case let popularLiveContent as PopularLiveContent:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PopularLiveCell", for: indexPath) as? PopularLiveCell else { return UICollectionViewCell() }
+                cell.dataBind(popularLiveContent)
+                return cell
                 //            case let adContent as ADContent:
             default:
                 return nil
             }
         })
         
-        dataSource.supplementaryViewProvider = { (view, kind, index) in
-            return self.rootView.collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "MustSeenHeader", for: index)
+        dataSource.supplementaryViewProvider = { (collectionView, kind, index) in
+            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader", for: index) as? SectionHeader else { return nil }
+            
+            if let sectionLayoutKind = Section(rawValue: index.section) {
+                switch sectionLayoutKind {
+                case .MustSeen:
+                    headerView.dataBind(headerTitle: "티빙에서 꼭 봐야하는 콘텐츠")
+                case .PopularLive:
+                    headerView.dataBind(headerTitle: "인기 LIVE 채널")
+                default:
+                    break
+                }
+            }
+            return headerView
         }
         
         putsnapshotData()
@@ -131,6 +147,7 @@ class HomeViewController: UIViewController {
         snapshot.appendSections(Section.allCases)
         snapshot.appendItems(mainContents, toSection: .Main)
         snapshot.appendItems(mustSeenContents, toSection: .MustSeen)
+        snapshot.appendItems(popularLiveContents, toSection: .PopularLive)
         dataSource.apply(snapshot)
     }
 }
