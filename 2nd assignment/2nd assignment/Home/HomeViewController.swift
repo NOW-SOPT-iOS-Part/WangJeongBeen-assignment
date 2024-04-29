@@ -10,7 +10,7 @@ import UIKit
 class HomeViewController: UIViewController {
     
     enum Section: Int, CaseIterable {
-        case Main, MustSeen, PopularLive, AD
+        case Main, MustSeen, PopularLive, FreeContent, AD, MagicContent
     }
     
     // MARK: - properties
@@ -19,6 +19,7 @@ class HomeViewController: UIViewController {
     private let mainContents = MainContent.list
     private let mustSeenContents = MustSeenContent.list
     private let popularLiveContents = PopularLiveContent.list
+    private let adContents = ADContent.list
     
     // MARK: - initializer
     override func viewDidLoad() {
@@ -80,11 +81,13 @@ class HomeViewController: UIViewController {
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
-            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0)
             
             if sectionLayoutKind == .Main {
                 section.orthogonalScrollingBehavior = .groupPagingCentered
-            } else if sectionLayoutKind == .MustSeen || sectionLayoutKind == .PopularLive {
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0)
+            } else if sectionLayoutKind == .AD {
+                section.contentInsets = NSDirectionalEdgeInsets(top: 30, leading: 0, bottom: 30, trailing: 0)
+            } else {
                 let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(20))
                 let headerSupplementaryItem = NSCollectionLayoutBoundarySupplementaryItem(
                     layoutSize: headerSize,
@@ -117,7 +120,10 @@ class HomeViewController: UIViewController {
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PopularLiveCell", for: indexPath) as? PopularLiveCell else { return UICollectionViewCell() }
                 cell.dataBind(popularLiveContent)
                 return cell
-                //            case let adContent as ADContent:
+            case let adContent as ADContent:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ADCell", for: indexPath) as? ADCell else { return UICollectionViewCell() }
+                cell.dataBind(adContent)
+                return cell
             default:
                 return nil
             }
@@ -148,6 +154,7 @@ class HomeViewController: UIViewController {
         snapshot.appendItems(mainContents, toSection: .Main)
         snapshot.appendItems(mustSeenContents, toSection: .MustSeen)
         snapshot.appendItems(popularLiveContents, toSection: .PopularLive)
+        snapshot.appendItems(adContents, toSection: .AD)
         dataSource.apply(snapshot)
     }
 }
