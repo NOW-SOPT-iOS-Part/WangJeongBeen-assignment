@@ -31,20 +31,19 @@ class MainCell: UICollectionViewCell {
         addSubview(contentImage)
         
         contentImage.do {
-            $0.contentMode = .scaleAspectFit
+            $0.contentMode = .scaleAspectFill
         }
     }
     
     private func setLayout() {
         contentImage.snp.makeConstraints {
-            $0.top.horizontalEdges.equalToSuperview()
-            $0.height.equalTo(500)
+            $0.edges.equalToSuperview()
         }
     }
 }
 
 extension MainCell {
     func dataBind(_ content: MainContent) {
-        contentImage.image = content.contentImage.withRenderingMode(.alwaysOriginal)
+        contentImage.image = content.contentImage
     }
 }

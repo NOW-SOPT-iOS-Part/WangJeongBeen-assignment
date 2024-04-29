@@ -17,6 +17,7 @@ class HomeViewController: UIViewController {
     private let rootView = HomeView()
     private var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>!
     private var mainContents = MainContent.list
+    private var mustSeenContents = MustSeenContent.list
     
     // MARK: - initializer
     override func viewDidLoad() {
@@ -63,10 +64,10 @@ class HomeViewController: UIViewController {
             switch sectionLayoutKind {
             case .Main:
                 itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(400))
+                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(520))
             case .MustSeen:
-                itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.3), heightDimension: .fractionalHeight(1.0))
-                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(150))
+                itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
+                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.26), heightDimension: .estimated(180))
             case .PopularLive:
                 itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.4), heightDimension: .fractionalHeight(1.0))
                 groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(80))
@@ -78,9 +79,22 @@ class HomeViewController: UIViewController {
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
             let section = NSCollectionLayoutSection(group: group)
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0)
             
-            section.interGroupSpacing = 0
-            section.orthogonalScrollingBehavior = .groupPagingCentered
+            if sectionLayoutKind == .Main {
+                section.orthogonalScrollingBehavior = .groupPagingCentered
+            } else if sectionLayoutKind == .MustSeen {
+                let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(20))
+                let headerSupplementaryItem = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: headerSize,
+                    elementKind: UICollectionView.elementKindSectionHeader,
+                    alignment: .top
+                )
+                section.boundarySupplementaryItems = [headerSupplementaryItem]
+                section.interGroupSpacing = 10
+                section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 0)
+                section.orthogonalScrollingBehavior = .continuous
+            }
             
             return section
         }
@@ -89,10 +103,25 @@ class HomeViewController: UIViewController {
     
     private func configureCollectionView() {
         dataSource = UICollectionViewDiffableDataSource(collectionView: rootView.collectionView, cellProvider: { collectionView, indexPath, item in
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCell", for: indexPath) as? MainCell else { return UICollectionViewCell() }
-            cell.dataBind(item as! MainContent)
-            return cell
+            switch item {
+            case let mainContent as MainContent:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MainCell", for: indexPath) as? MainCell else { return UICollectionViewCell() }
+                cell.dataBind(mainContent)
+                return cell
+            case let mustSeenContent as MustSeenContent:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MustSeenCell", for: indexPath) as? MustSeenCell else { return UICollectionViewCell() }
+                cell.dataBind(mustSeenContent)
+                return cell
+//                            case let popularLiveContent as PopularLiveContent:
+                //            case let adContent as ADContent:
+            default:
+                return nil
+            }
         })
+        
+        dataSource.supplementaryViewProvider = { (view, kind, index) in
+            return self.rootView.collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "MustSeenHeader", for: index)
+        }
         
         putsnapshotData()
     }
@@ -101,6 +130,7 @@ class HomeViewController: UIViewController {
         var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
         snapshot.appendSections(Section.allCases)
         snapshot.appendItems(mainContents, toSection: .Main)
+        snapshot.appendItems(mustSeenContents, toSection: .MustSeen)
         dataSource.apply(snapshot)
     }
 }
