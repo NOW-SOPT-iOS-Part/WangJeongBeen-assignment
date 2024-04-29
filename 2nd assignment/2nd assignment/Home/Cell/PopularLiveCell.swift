@@ -35,6 +35,8 @@ class PopularLiveCell: UICollectionViewCell {
         
         addSubviews(liveShowImage, liveRankLabel, liveShowStackView)
         
+        liveShowImage.do { $0.layer.cornerRadius = 5 }
+        
         liveShowStackView.do {
             $0.axis = .vertical
             $0.alignment = .leading

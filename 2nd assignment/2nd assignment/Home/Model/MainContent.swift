@@ -14,14 +14,13 @@ struct MainContent: Hashable {
 
 extension MainContent {
     static let list = [
-        MainContent(contentImage: UIImage(named: "contentImage")!),
-        MainContent(contentImage: UIImage(named: "contentImage")!),
-        MainContent(contentImage: UIImage(named: "contentImage")!),
-        MainContent(contentImage: UIImage(named: "contentImage")!),
-        MainContent(contentImage: UIImage(named: "contentImage")!),
-        MainContent(contentImage: UIImage(named: "contentImage")!),
-        MainContent(contentImage: UIImage(named: "contentImage")!),
-        MainContent(contentImage: UIImage(named: "contentImage")!),
-        MainContent(contentImage: UIImage(named: "contentImage")!)
+        MainContent(contentImage: UIImage(named: "yourname")!),
+        MainContent(contentImage: UIImage(named: "yourname")!),
+        MainContent(contentImage: UIImage(named: "yourname")!),
+        MainContent(contentImage: UIImage(named: "yourname")!),
+        MainContent(contentImage: UIImage(named: "yourname")!),
+        MainContent(contentImage: UIImage(named: "yourname")!),
+        MainContent(contentImage: UIImage(named: "yourname")!),
+        MainContent(contentImage: UIImage(named: "yourname")!),
     ]
 }

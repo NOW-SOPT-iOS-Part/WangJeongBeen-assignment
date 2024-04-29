@@ -15,12 +15,13 @@ struct MustSeenContent: Hashable {
 
 extension MustSeenContent {
     static let list = [
-        MustSeenContent(contentImage: UIImage(named: "contentImage")!, contentName: "너의 이름은"),
-        MustSeenContent(contentImage: UIImage(named: "contentImage")!, contentName: "너의 이름은"),
-        MustSeenContent(contentImage: UIImage(named: "contentImage")!, contentName: "너의 이름은"),
-        MustSeenContent(contentImage: UIImage(named: "contentImage")!, contentName: "너의 이름은"),
-        MustSeenContent(contentImage: UIImage(named: "contentImage")!, contentName: "너의 이름은"),
-        MustSeenContent(contentImage: UIImage(named: "contentImage")!, contentName: "너의 이름은"),
-        MustSeenContent(contentImage: UIImage(named: "contentImage")!, contentName: "너의 이름은")
+        MustSeenContent(contentImage: UIImage(named: "doorCheck")!, contentName: "스즈메의 문단속"),
+        MustSeenContent(contentImage: UIImage(named: "doorCheck")!, contentName: "스즈메의 문단속"),
+        MustSeenContent(contentImage: UIImage(named: "doorCheck")!, contentName: "스즈메의 문단속"),
+        MustSeenContent(contentImage: UIImage(named: "doorCheck")!, contentName: "스즈메의 문단속"),
+        MustSeenContent(contentImage: UIImage(named: "doorCheck")!, contentName: "스즈메의 문단속"),
+        MustSeenContent(contentImage: UIImage(named: "doorCheck")!, contentName: "스즈메의 문단속"),
+        MustSeenContent(contentImage: UIImage(named: "doorCheck")!, contentName: "스즈메의 문단속"),
+        MustSeenContent(contentImage: UIImage(named: "doorCheck")!, contentName: "스즈메의 문단속")
     ]
 }

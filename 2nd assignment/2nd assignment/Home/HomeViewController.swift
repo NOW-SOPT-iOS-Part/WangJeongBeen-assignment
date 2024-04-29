@@ -19,7 +19,9 @@ class HomeViewController: UIViewController {
     private let mainContents = MainContent.list
     private let mustSeenContents = MustSeenContent.list
     private let popularLiveContents = PopularLiveContent.list
+    private let freeContents = FreeContent.list
     private let adContents = ADContent.list
+    private let magicContents = MagicContent.list
     
     // MARK: - initializer
     override func viewDidLoad() {
@@ -67,12 +69,12 @@ class HomeViewController: UIViewController {
             case .Main:
                 itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
                 groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(520))
-            case .MustSeen:
+            case .MustSeen, .FreeContent, .MagicContent:
                 itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
                 groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.26), heightDimension: .estimated(180))
             case .PopularLive:
                 itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
-                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.42), heightDimension: .estimated(120))
+                groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.42), heightDimension: .estimated(130))
             case .AD:
                 itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
                 groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(60))
@@ -86,7 +88,7 @@ class HomeViewController: UIViewController {
                 section.orthogonalScrollingBehavior = .groupPagingCentered
                 section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0)
             } else if sectionLayoutKind == .AD {
-                section.contentInsets = NSDirectionalEdgeInsets(top: 30, leading: 0, bottom: 30, trailing: 0)
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0)
             } else {
                 let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(20))
                 let headerSupplementaryItem = NSCollectionLayoutBoundarySupplementaryItem(
@@ -96,7 +98,7 @@ class HomeViewController: UIViewController {
                 )
                 section.boundarySupplementaryItems = [headerSupplementaryItem]
                 section.interGroupSpacing = 10
-                section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 10, trailing: 0)
+                section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 20, trailing: 0)
                 section.orthogonalScrollingBehavior = .continuous
             }
             
@@ -138,6 +140,10 @@ class HomeViewController: UIViewController {
                     headerView.dataBind(headerTitle: "티빙에서 꼭 봐야하는 콘텐츠")
                 case .PopularLive:
                     headerView.dataBind(headerTitle: "인기 LIVE 채널")
+                case .FreeContent:
+                    headerView.dataBind(headerTitle: "1화 무료! 파라마운트+ 인기 시리즈")
+                case .MagicContent:
+                    headerView.dataBind(headerTitle: "마술보다 더 신비로운 영화(신비로운 영화사전님)")
                 default:
                     break
                 }
@@ -154,7 +160,9 @@ class HomeViewController: UIViewController {
         snapshot.appendItems(mainContents, toSection: .Main)
         snapshot.appendItems(mustSeenContents, toSection: .MustSeen)
         snapshot.appendItems(popularLiveContents, toSection: .PopularLive)
+        snapshot.appendItems(freeContents, toSection: .FreeContent)
         snapshot.appendItems(adContents, toSection: .AD)
+        snapshot.appendItems(magicContents, toSection: .MagicContent)
         dataSource.apply(snapshot)
     }
 }
