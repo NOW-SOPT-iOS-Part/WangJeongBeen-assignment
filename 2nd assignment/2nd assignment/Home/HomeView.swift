@@ -14,6 +14,7 @@ class HomeView: UIView {
     // MARK: - properties
     let mainTitleView = UIImageView()
     let userProfile = UIImageView()
+    let topBackgroundView = UIView()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     let topTabBar = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     
@@ -34,7 +35,9 @@ class HomeView: UIView {
     private func setUI() {
         backgroundColor = .black
         
-        addSubviews(collectionView, topTabBar)
+        addSubviews(topBackgroundView, collectionView, topTabBar)
+        bringSubviewToFront(topBackgroundView)
+        bringSubviewToFront(topTabBar)
         
         mainTitleView.do {
             $0.image = UIImage(named: "mainTitle")
@@ -72,6 +75,11 @@ class HomeView: UIView {
             $0.top.equalTo(safeAreaLayoutGuide)
             $0.leading.trailing.equalToSuperview()
             $0.height.equalTo(50)
+        }
+        
+        topBackgroundView.snp.makeConstraints {
+            $0.top.horizontalEdges.equalToSuperview()
+            $0.bottom.equalTo(topTabBar)
         }
         
         collectionView.snp.makeConstraints { $0.edges.equalToSuperview() }

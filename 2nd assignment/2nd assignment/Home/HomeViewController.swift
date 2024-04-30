@@ -33,10 +33,10 @@ class HomeViewController: UIViewController {
     // MARK: - set initial attributes
     private func setInitialAttributes() {
         view = rootView
-        //        rootView.collectionView.delegate = self
         
         rootView.collectionView.contentInsetAdjustmentBehavior = .never
         rootView.collectionView.collectionViewLayout = collectionViewLayout()
+        rootView.collectionView.delegate = self
         configureCollectionView()
         
         setNavigationBar()
@@ -56,6 +56,8 @@ class HomeViewController: UIViewController {
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
+        
+        navigationController?.hidesBarsOnSwipe = true
     }
     
     // MARK: - set collectionView attributes
@@ -179,5 +181,13 @@ class HomeViewController: UIViewController {
         snapshot.appendItems(adContents, toSection: .AD)
         snapshot.appendItems(magicContents, toSection: .MagicContent)
         dataSource.apply(snapshot)
+    }
+}
+
+extension HomeViewController: UICollectionViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let y = scrollView.contentOffset.y
+        navigationController?.setNavigationBarHidden(y <= 0 ? false : true, animated: false)
+        rootView.topBackgroundView.backgroundColor = y <= 0 ? .clear : .black
     }
 }
