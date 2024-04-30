@@ -63,6 +63,7 @@ class HomeView: UIView {
             $0.register(PopularLiveCell.self, forCellWithReuseIdentifier: "PopularLiveCell")
             $0.register(ADCell.self, forCellWithReuseIdentifier: "ADCell")
             $0.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader")
+            $0.register(SectionFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter")
         }
     }
     

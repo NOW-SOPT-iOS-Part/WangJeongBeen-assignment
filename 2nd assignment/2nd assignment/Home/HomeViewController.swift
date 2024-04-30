@@ -33,7 +33,7 @@ class HomeViewController: UIViewController {
     // MARK: - set initial attributes
     private func setInitialAttributes() {
         view = rootView
-//        rootView.collectionView.delegate = self
+        //        rootView.collectionView.delegate = self
         
         rootView.collectionView.contentInsetAdjustmentBehavior = .never
         rootView.collectionView.collectionViewLayout = collectionViewLayout()
@@ -86,6 +86,13 @@ class HomeViewController: UIViewController {
             let section = NSCollectionLayoutSection(group: group)
             
             if sectionLayoutKind == .Main {
+                let footerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(40))
+                let footerSupplementaryItem = NSCollectionLayoutBoundarySupplementaryItem(
+                    layoutSize: footerSize,
+                    elementKind: UICollectionView.elementKindSectionFooter,
+                    alignment: .bottom
+                )
+                section.boundarySupplementaryItems = [footerSupplementaryItem]
                 section.orthogonalScrollingBehavior = .groupPagingCentered
                 section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0)
             } else if sectionLayoutKind == .AD {
@@ -133,24 +140,31 @@ class HomeViewController: UIViewController {
         })
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, index) in
-            guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader", for: index) as? SectionHeader else { return nil }
             
-            if let sectionLayoutKind = Section(rawValue: index.section) {
-                switch sectionLayoutKind {
-                case .MustSeen:
-                    headerView.dataBind(headerTitle: "티빙에서 꼭 봐야하는 콘텐츠")
-                case .PopularLive:
-                    headerView.dataBind(headerTitle: "인기 LIVE 채널")
-                case .FreeContent:
-                    headerView.dataBind(headerTitle: "1화 무료! 파라마운트+ 인기 시리즈")
-                case .MagicContent:
-                    headerView.dataBind(headerTitle: "마술보다 더 신비로운 영화(신비로운 영화사전님)")
-                default:
-                    break
+            
+            if kind == UICollectionView.elementKindSectionHeader {
+                guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader", for: index) as? SectionHeader else { return nil }
+                
+                if let sectionLayoutKind = Section(rawValue: index.section) {
+                    switch sectionLayoutKind {
+                    case .MustSeen:
+                        headerView.dataBind(headerTitle: "티빙에서 꼭 봐야하는 콘텐츠")
+                    case .PopularLive:
+                        headerView.dataBind(headerTitle: "인기 LIVE 채널")
+                    case .FreeContent:
+                        headerView.dataBind(headerTitle: "1화 무료! 파라마운트+ 인기 시리즈")
+                    case .MagicContent:
+                        headerView.dataBind(headerTitle: "마술보다 더 신비로운 영화(신비로운 영화사전님)")
+                    default:
+                        break
+                    }
                 }
+                return headerView
+            } else {
+                return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter", for: index)
             }
-            return headerView
         }
+        
         
         putsnapshotData()
     }

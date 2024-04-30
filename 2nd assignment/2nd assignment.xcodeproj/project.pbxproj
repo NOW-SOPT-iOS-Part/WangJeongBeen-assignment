@@ -19,6 +19,7 @@
 		213B76342BE0102A0022DE39 /* MagicContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213B76332BE0102A0022DE39 /* MagicContent.swift */; };
 		213B76362BE01ECA0022DE39 /* TabBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213B76352BE01ECA0022DE39 /* TabBarCell.swift */; };
 		213B76382BE0C5120022DE39 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213B76372BE0C5120022DE39 /* TabBarItem.swift */; };
+		213B763A2BE0D8FF0022DE39 /* SectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213B76392BE0D8FF0022DE39 /* SectionFooter.swift */; };
 		217CA54F2BC7AB4500497FA0 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217CA54E2BC7AB4500497FA0 /* UIView+Extension.swift */; };
 		217DAD2D2BC44DD20024BEC2 /* CreateNickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217DAD2C2BC44DD20024BEC2 /* CreateNickNameViewController.swift */; };
 		218988592BC281510034244C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218988582BC281510034244C /* AppDelegate.swift */; };
@@ -52,6 +53,7 @@
 		213B76332BE0102A0022DE39 /* MagicContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicContent.swift; sourceTree = "<group>"; };
 		213B76352BE01ECA0022DE39 /* TabBarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarCell.swift; sourceTree = "<group>"; };
 		213B76372BE0C5120022DE39 /* TabBarItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarItem.swift; sourceTree = "<group>"; };
+		213B76392BE0D8FF0022DE39 /* SectionFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionFooter.swift; sourceTree = "<group>"; };
 		217CA54E2BC7AB4500497FA0 /* UIView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		217DAD2C2BC44DD20024BEC2 /* CreateNickNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNickNameViewController.swift; sourceTree = "<group>"; };
 		218988552BC281510034244C /* 2nd assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "2nd assignment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -185,6 +187,7 @@
 			children = (
 				21AF35F22BDA523C001756F8 /* MainCell.swift */,
 				213B762F2BDF8DAD0022DE39 /* SectionHeader.swift */,
+				213B76392BE0D8FF0022DE39 /* SectionFooter.swift */,
 				21AF35F52BDA5289001756F8 /* SeriesContentCell.swift */,
 				21AF35F72BDA52A4001756F8 /* PopularLiveCell.swift */,
 				21AF35F92BDA52D4001756F8 /* ADCell.swift */,
@@ -292,6 +295,7 @@
 				21AF35F62BDA5289001756F8 /* SeriesContentCell.swift in Sources */,
 				2189887D2BC2AF220034244C /* UIButton+Extension.swift in Sources */,
 				21380B6F2BDF803E00691D28 /* ADContent.swift in Sources */,
+				213B763A2BE0D8FF0022DE39 /* SectionFooter.swift in Sources */,
 				2189885B2BC281510034244C /* SceneDelegate.swift in Sources */,
 				213B76382BE0C5120022DE39 /* TabBarItem.swift in Sources */,
 				21AF35FA2BDA52D4001756F8 /* ADCell.swift in Sources */,
