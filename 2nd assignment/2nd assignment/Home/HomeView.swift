@@ -15,6 +15,7 @@ class HomeView: UIView {
     let mainTitleView = UIImageView()
     let userProfile = UIImageView()
     let collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    let topTabBar = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
     
     // MARK: - initializer
     override init(frame: CGRect) {
@@ -22,6 +23,7 @@ class HomeView: UIView {
         
         setUI()
         setLayout()
+        tabBarLayout()
     }
     
     required init?(coder: NSCoder) {
@@ -32,7 +34,7 @@ class HomeView: UIView {
     private func setUI() {
         backgroundColor = .black
         
-        addSubview(collectionView)
+        addSubviews(collectionView, topTabBar)
         
         mainTitleView.do {
             $0.image = UIImage(named: "mainTitle")
@@ -46,6 +48,14 @@ class HomeView: UIView {
             $0.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
         }
         
+        topTabBar.do {
+            $0.dataSource = self
+            $0.delegate = self
+            $0.register(TabBarCell.self, forCellWithReuseIdentifier: "TabBarCell")
+            $0.backgroundColor = .none
+            $0.showsHorizontalScrollIndicator = false
+        }
+        
         collectionView.do {
             $0.backgroundColor = .black
             $0.register(MainCell.self, forCellWithReuseIdentifier: "MainCell")
@@ -57,6 +67,37 @@ class HomeView: UIView {
     }
     
     private func setLayout() {
+        topTabBar.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide)
+            $0.leading.trailing.equalToSuperview()
+            $0.height.equalTo(50)
+        }
+        
         collectionView.snp.makeConstraints { $0.edges.equalToSuperview() }
     }
+    
+    private func tabBarLayout() {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        topTabBar.collectionViewLayout = layout
+    }
+}
+
+extension HomeView: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return TabBarItem.list.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "TabBarCell", for: indexPath) as? TabBarCell else { return UICollectionViewCell() }
+        cell.menuLabel.text = TabBarItem.list[indexPath.item].menu
+        return cell
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            let tmpLabel : UILabel = UILabel()
+            tmpLabel.text = TabBarItem.list[indexPath.item].menu
+            return CGSize(width: Int(tmpLabel.intrinsicContentSize.width) + 20, height: 30)
+        }
+
 }

@@ -33,6 +33,7 @@ class HomeViewController: UIViewController {
     // MARK: - set initial attributes
     private func setInitialAttributes() {
         view = rootView
+//        rootView.collectionView.delegate = self
         
         rootView.collectionView.contentInsetAdjustmentBehavior = .never
         rootView.collectionView.collectionViewLayout = collectionViewLayout()
@@ -166,4 +167,3 @@ class HomeViewController: UIViewController {
         dataSource.apply(snapshot)
     }
 }
-
