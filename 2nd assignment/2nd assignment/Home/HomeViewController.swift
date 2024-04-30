@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxSwift
 
 class HomeViewController: UIViewController {
     
@@ -16,6 +17,7 @@ class HomeViewController: UIViewController {
     // MARK: - properties
     private let rootView = HomeView()
     private var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>!
+    private let currentBannerPage = PublishSubject<Int>()
     private let mainContents = MainContent.list
     private let mustSeenContents = MustSeenContent.list
     private let popularLiveContents = PopularLiveContent.list
@@ -97,6 +99,11 @@ class HomeViewController: UIViewController {
                 section.boundarySupplementaryItems = [footerSupplementaryItem]
                 section.orthogonalScrollingBehavior = .groupPagingCentered
                 section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0)
+                section.visibleItemsInvalidationHandler = { [weak self] items, contentOffset, environment in
+                    guard let self = self else { return }
+                    let currentPage = Int(max(0, round(contentOffset.x / environment.container.contentSize.width)))
+                    self.currentBannerPage.onNext(currentPage)
+                }
             } else if sectionLayoutKind == .AD {
                 section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0)
             } else {
@@ -142,10 +149,9 @@ class HomeViewController: UIViewController {
         })
         
         dataSource.supplementaryViewProvider = { (collectionView, kind, index) in
-            
-            
-            if kind == UICollectionView.elementKindSectionHeader {
-                guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader", for: index) as? SectionHeader else { return nil }
+            switch kind {
+            case UICollectionView.elementKindSectionHeader:
+                guard let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "SectionHeader", for: index) as? SectionHeader else { return UICollectionReusableView() }
                 
                 if let sectionLayoutKind = Section(rawValue: index.section) {
                     switch sectionLayoutKind {
@@ -162,11 +168,14 @@ class HomeViewController: UIViewController {
                     }
                 }
                 return headerView
-            } else {
-                return collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter", for: index)
+            case UICollectionView.elementKindSectionFooter:
+                guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter", for: index) as? SectionFooter else { return UICollectionReusableView() }
+                footerView.bind(input: self.currentBannerPage.asObservable())
+                return footerView
+            default:
+                return UICollectionReusableView()
             }
         }
-        
         
         putsnapshotData()
     }

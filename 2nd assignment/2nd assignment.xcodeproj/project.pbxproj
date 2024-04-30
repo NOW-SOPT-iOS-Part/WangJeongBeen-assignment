@@ -20,6 +20,8 @@
 		213B76362BE01ECA0022DE39 /* TabBarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213B76352BE01ECA0022DE39 /* TabBarCell.swift */; };
 		213B76382BE0C5120022DE39 /* TabBarItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213B76372BE0C5120022DE39 /* TabBarItem.swift */; };
 		213B763A2BE0D8FF0022DE39 /* SectionFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 213B76392BE0D8FF0022DE39 /* SectionFooter.swift */; };
+		213B76402BE12CEE0022DE39 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 213B763F2BE12CEE0022DE39 /* RxCocoa */; };
+		213B76422BE12CEE0022DE39 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 213B76412BE12CEE0022DE39 /* RxSwift */; };
 		217CA54F2BC7AB4500497FA0 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217CA54E2BC7AB4500497FA0 /* UIView+Extension.swift */; };
 		217DAD2D2BC44DD20024BEC2 /* CreateNickNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 217DAD2C2BC44DD20024BEC2 /* CreateNickNameViewController.swift */; };
 		218988592BC281510034244C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218988582BC281510034244C /* AppDelegate.swift */; };
@@ -79,7 +81,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				213B76402BE12CEE0022DE39 /* RxCocoa in Frameworks */,
 				2189886E2BC2817C0034244C /* SnapKit in Frameworks */,
+				213B76422BE12CEE0022DE39 /* RxSwift in Frameworks */,
 				218988712BC281840034244C /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -215,6 +219,8 @@
 			packageProductDependencies = (
 				2189886D2BC2817C0034244C /* SnapKit */,
 				218988702BC281840034244C /* Then */,
+				213B763F2BE12CEE0022DE39 /* RxCocoa */,
+				213B76412BE12CEE0022DE39 /* RxSwift */,
 			);
 			productName = "2nd assignment";
 			productReference = 218988552BC281510034244C /* 2nd assignment.app */;
@@ -247,6 +253,7 @@
 			packageReferences = (
 				2189886C2BC2817C0034244C /* XCRemoteSwiftPackageReference "SnapKit" */,
 				2189886F2BC281840034244C /* XCRemoteSwiftPackageReference "Then" */,
+				213B763E2BE12CEE0022DE39 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 218988562BC281510034244C /* Products */;
 			projectDirPath = "";
@@ -510,6 +517,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		213B763E2BE12CEE0022DE39 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
 		2189886C2BC2817C0034244C /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -529,6 +544,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		213B763F2BE12CEE0022DE39 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 213B763E2BE12CEE0022DE39 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		213B76412BE12CEE0022DE39 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 213B763E2BE12CEE0022DE39 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
 		2189886D2BC2817C0034244C /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 2189886C2BC2817C0034244C /* XCRemoteSwiftPackageReference "SnapKit" */;
