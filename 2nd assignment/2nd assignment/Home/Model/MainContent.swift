@@ -21,6 +21,6 @@ extension MainContent {
         MainContent(contentImage: UIImage(named: "yourname")!),
         MainContent(contentImage: UIImage(named: "yourname")!),
         MainContent(contentImage: UIImage(named: "yourname")!),
-        MainContent(contentImage: UIImage(named: "yourname")!),
+        MainContent(contentImage: UIImage(named: "yourname")!)
     ]
 }
