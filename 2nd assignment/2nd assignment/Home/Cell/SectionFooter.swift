@@ -56,12 +56,13 @@ extension SectionFooter {
     //            .disposed(by: disposeBag)
     //    }
     
+    //visibleItemsInvalidationHandler에서 currentPage 데이터를 받아와서 pageControl 업데이트
     func dataBind() {
         NotificationCenter.default.addObserver(forName: NSNotification.Name("pageControl"), object: nil, queue: nil) { [weak self] notification in
             guard let self = self else { return }
             
             let currentPage = notification.object
-            self.pageControl.currentPage = currentPage as? Int ?? 0
+            self.pageControl.currentPage = currentPage as! Int
         }
     }
 }

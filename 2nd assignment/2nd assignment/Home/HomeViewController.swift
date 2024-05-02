@@ -17,7 +17,7 @@ class HomeViewController: UIViewController {
     // MARK: - properties
     private let rootView = HomeView()
     private var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>!
-    private let currentBannerPage = PublishSubject<Int>()
+//    private let currentBannerPage = PublishSubject<Int>()
     private let mainContents = MainContent.list
     private let mustSeenContents = MustSeenContent.list
     private let popularLiveContents = PopularLiveContent.list
@@ -55,10 +55,12 @@ class HomeViewController: UIViewController {
         navigationItem.rightBarButtonItem = userProfile
         navigationItem.hidesBackButton = true
         
+        //navigationBar 투명하게 만들기
         navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
         navigationController?.navigationBar.shadowImage = UIImage()
         navigationController?.navigationBar.isTranslucent = true
         
+        //스크롤 시 navigationBar 위로 사라짐
         navigationController?.hidesBarsOnSwipe = true
     }
     
@@ -99,6 +101,8 @@ class HomeViewController: UIViewController {
                 section.boundarySupplementaryItems = [footerSupplementaryItem]
                 section.orthogonalScrollingBehavior = .groupPagingCentered
                 section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0)
+                
+                //compositional Layout 사용시 collectionView안의 section내의 item들이 scroll 됐는지 감지하는 handler
                 section.visibleItemsInvalidationHandler = { items, contentOffset, environment in
                     let currentPage = Int(max(0, round(contentOffset.x / environment.container.contentSize.width)))
 //                    self.currentBannerPage.onNext(currentPage)
@@ -118,7 +122,6 @@ class HomeViewController: UIViewController {
                 section.contentInsets = NSDirectionalEdgeInsets(top: 10, leading: 10, bottom: 20, trailing: 0)
                 section.orthogonalScrollingBehavior = .continuous
             }
-            
             return section
         }
         return layout
@@ -168,6 +171,7 @@ class HomeViewController: UIViewController {
                     }
                 }
                 return headerView
+                
             case UICollectionView.elementKindSectionFooter:
                 guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter", for: index) as? SectionFooter else { return UICollectionReusableView() }
 //                footerView.bind(input: self.currentBannerPage.asObservable())
@@ -195,6 +199,7 @@ class HomeViewController: UIViewController {
 }
 
 extension HomeViewController: UICollectionViewDelegate {
+    //스크롤 시 최상단에서만 navigationBar 나타남, navigationBar 유무에 따라서 색 변경
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let y = scrollView.contentOffset.y
         navigationController?.setNavigationBarHidden(y <= 0 ? false : true, animated: false)
