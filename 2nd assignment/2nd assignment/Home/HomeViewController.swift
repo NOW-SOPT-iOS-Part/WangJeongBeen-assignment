@@ -99,10 +99,10 @@ class HomeViewController: UIViewController {
                 section.boundarySupplementaryItems = [footerSupplementaryItem]
                 section.orthogonalScrollingBehavior = .groupPagingCentered
                 section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0)
-                section.visibleItemsInvalidationHandler = { [weak self] items, contentOffset, environment in
-                    guard let self = self else { return }
+                section.visibleItemsInvalidationHandler = { items, contentOffset, environment in
                     let currentPage = Int(max(0, round(contentOffset.x / environment.container.contentSize.width)))
-                    self.currentBannerPage.onNext(currentPage)
+//                    self.currentBannerPage.onNext(currentPage)
+                    NotificationCenter.default.post(name: NSNotification.Name("pageControl"), object: currentPage)
                 }
             } else if sectionLayoutKind == .AD {
                 section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 30, trailing: 0)
@@ -170,7 +170,8 @@ class HomeViewController: UIViewController {
                 return headerView
             case UICollectionView.elementKindSectionFooter:
                 guard let footerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: "SectionFooter", for: index) as? SectionFooter else { return UICollectionReusableView() }
-                footerView.bind(input: self.currentBannerPage.asObservable())
+//                footerView.bind(input: self.currentBannerPage.asObservable())
+                footerView.dataBind()
                 return footerView
             default:
                 return UICollectionReusableView()

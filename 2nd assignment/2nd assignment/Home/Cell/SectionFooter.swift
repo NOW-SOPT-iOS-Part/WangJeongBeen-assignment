@@ -45,12 +45,23 @@ class SectionFooter: UICollectionReusableView {
             $0.leading.equalToSuperview().offset(-40)
         }
     }
+}
+
+extension SectionFooter {
+    //    func bind(input: Observable<Int>) {
+    //        input
+    //            .subscribe(onNext: { [weak self] currentPage in
+    //                self?.pageControl.currentPage = currentPage
+    //            })
+    //            .disposed(by: disposeBag)
+    //    }
     
-    func bind(input: Observable<Int>) {
-        input
-            .subscribe(onNext: { [weak self] currentPage in
-                self?.pageControl.currentPage = currentPage
-            })
-            .disposed(by: disposeBag)
+    func dataBind() {
+        NotificationCenter.default.addObserver(forName: NSNotification.Name("pageControl"), object: nil, queue: nil) { [weak self] notification in
+            guard let self = self else { return }
+            
+            let currentPage = notification.object
+            self.pageControl.currentPage = currentPage as? Int ?? 0
+        }
     }
 }
