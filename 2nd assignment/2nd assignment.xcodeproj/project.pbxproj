@@ -36,10 +36,16 @@
 		218988792BC2ACB80034244C /* WelcomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 218988782BC2ACB80034244C /* WelcomeView.swift */; };
 		2189887B2BC2AE860034244C /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189887A2BC2AE860034244C /* UITextField+Extension.swift */; };
 		2189887D2BC2AF220034244C /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2189887C2BC2AF220034244C /* UIButton+Extension.swift */; };
+		219E70E82BE5187C0087D952 /* LiveViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E70E72BE5187C0087D952 /* LiveViewController.swift */; };
+		219E70EA2BE5188D0087D952 /* TVProViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E70E92BE5188D0087D952 /* TVProViewController.swift */; };
+		219E70EC2BE518970087D952 /* MovieViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E70EB2BE518970087D952 /* MovieViewController.swift */; };
+		219E70EE2BE518A20087D952 /* ParamountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 219E70ED2BE518A20087D952 /* ParamountViewController.swift */; };
 		21AF35F32BDA523C001756F8 /* MainCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF35F22BDA523C001756F8 /* MainCell.swift */; };
 		21AF35F62BDA5289001756F8 /* SeriesContentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF35F52BDA5289001756F8 /* SeriesContentCell.swift */; };
 		21AF35F82BDA52A4001756F8 /* PopularLiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF35F72BDA52A4001756F8 /* PopularLiveCell.swift */; };
 		21AF35FA2BDA52D4001756F8 /* ADCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21AF35F92BDA52D4001756F8 /* ADCell.swift */; };
+		21FC9F1F2BE51C72007E88D8 /* HomeSectionType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FC9F1E2BE51C72007E88D8 /* HomeSectionType.swift */; };
+		21FC9F212BE605FC007E88D8 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21FC9F202BE605FC007E88D8 /* PageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -70,10 +76,16 @@
 		218988782BC2ACB80034244C /* WelcomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeView.swift; sourceTree = "<group>"; };
 		2189887A2BC2AE860034244C /* UITextField+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		2189887C2BC2AF220034244C /* UIButton+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
+		219E70E72BE5187C0087D952 /* LiveViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveViewController.swift; sourceTree = "<group>"; };
+		219E70E92BE5188D0087D952 /* TVProViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVProViewController.swift; sourceTree = "<group>"; };
+		219E70EB2BE518970087D952 /* MovieViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieViewController.swift; sourceTree = "<group>"; };
+		219E70ED2BE518A20087D952 /* ParamountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParamountViewController.swift; sourceTree = "<group>"; };
 		21AF35F22BDA523C001756F8 /* MainCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCell.swift; sourceTree = "<group>"; };
 		21AF35F52BDA5289001756F8 /* SeriesContentCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeriesContentCell.swift; sourceTree = "<group>"; };
 		21AF35F72BDA52A4001756F8 /* PopularLiveCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularLiveCell.swift; sourceTree = "<group>"; };
 		21AF35F92BDA52D4001756F8 /* ADCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ADCell.swift; sourceTree = "<group>"; };
+		21FC9F1E2BE51C72007E88D8 /* HomeSectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSectionType.swift; sourceTree = "<group>"; };
+		21FC9F202BE605FC007E88D8 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -94,8 +106,8 @@
 		2107318F2BDA3DB3004C1E33 /* Home */ = {
 			isa = PBXGroup;
 			children = (
-				2107318D2BDA3DA8004C1E33 /* HomeViewController.swift */,
-				210731902BDA3DE7004C1E33 /* HomeView.swift */,
+				219E70EF2BE518B40087D952 /* HomeViewController */,
+				219E70F02BE518C70087D952 /* HomeView */,
 				21AF35F42BDA524B001756F8 /* Cell */,
 				21085A062BDF56B0000DE5AB /* Model */,
 			);
@@ -105,6 +117,7 @@
 		21085A062BDF56B0000DE5AB /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				21FC9F1E2BE51C72007E88D8 /* HomeSectionType.swift */,
 				21085A042BDF56AB000DE5AB /* MainContent.swift */,
 				21380B6A2BDF802700691D28 /* MustSeenContent.swift */,
 				21380B6C2BDF803700691D28 /* PopularLiveContent.swift */,
@@ -186,6 +199,24 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		219E70EF2BE518B40087D952 /* HomeViewController */ = {
+			isa = PBXGroup;
+			children = (
+				21FC9F202BE605FC007E88D8 /* PageViewController.swift */,
+				2107318D2BDA3DA8004C1E33 /* HomeViewController.swift */,
+				21FC9F1D2BE51AE9007E88D8 /* Dummy */,
+			);
+			path = HomeViewController;
+			sourceTree = "<group>";
+		};
+		219E70F02BE518C70087D952 /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				210731902BDA3DE7004C1E33 /* HomeView.swift */,
+			);
+			path = HomeView;
+			sourceTree = "<group>";
+		};
 		21AF35F42BDA524B001756F8 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -198,6 +229,17 @@
 				213B76352BE01ECA0022DE39 /* TabBarCell.swift */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		21FC9F1D2BE51AE9007E88D8 /* Dummy */ = {
+			isa = PBXGroup;
+			children = (
+				219E70E72BE5187C0087D952 /* LiveViewController.swift */,
+				219E70E92BE5188D0087D952 /* TVProViewController.swift */,
+				219E70EB2BE518970087D952 /* MovieViewController.swift */,
+				219E70ED2BE518A20087D952 /* ParamountViewController.swift */,
+			);
+			path = Dummy;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -283,6 +325,7 @@
 			files = (
 				217CA54F2BC7AB4500497FA0 /* UIView+Extension.swift in Sources */,
 				213B76342BE0102A0022DE39 /* MagicContent.swift in Sources */,
+				219E70E82BE5187C0087D952 /* LiveViewController.swift in Sources */,
 				21380B6D2BDF803700691D28 /* PopularLiveContent.swift in Sources */,
 				2109AB5B2BC44EB4006EE1E5 /* CreateNickNameView.swift in Sources */,
 				21085A052BDF56AC000DE5AB /* MainContent.swift in Sources */,
@@ -291,9 +334,12 @@
 				21AF35F82BDA52A4001756F8 /* PopularLiveCell.swift in Sources */,
 				2189885D2BC281510034244C /* LoginViewController.swift in Sources */,
 				218988792BC2ACB80034244C /* WelcomeView.swift in Sources */,
+				219E70EC2BE518970087D952 /* MovieViewController.swift in Sources */,
 				218988762BC2AC9B0034244C /* WelcomeViewController.swift in Sources */,
+				219E70EA2BE5188D0087D952 /* TVProViewController.swift in Sources */,
 				218988592BC281510034244C /* AppDelegate.swift in Sources */,
 				217DAD2D2BC44DD20024BEC2 /* CreateNickNameViewController.swift in Sources */,
+				21FC9F1F2BE51C72007E88D8 /* HomeSectionType.swift in Sources */,
 				213B76322BE00FFD0022DE39 /* FreeContent.swift in Sources */,
 				213B76362BE01ECA0022DE39 /* TabBarCell.swift in Sources */,
 				21AF35F32BDA523C001756F8 /* MainCell.swift in Sources */,
@@ -301,10 +347,12 @@
 				21380B6B2BDF802700691D28 /* MustSeenContent.swift in Sources */,
 				21AF35F62BDA5289001756F8 /* SeriesContentCell.swift in Sources */,
 				2189887D2BC2AF220034244C /* UIButton+Extension.swift in Sources */,
+				21FC9F212BE605FC007E88D8 /* PageViewController.swift in Sources */,
 				21380B6F2BDF803E00691D28 /* ADContent.swift in Sources */,
 				213B763A2BE0D8FF0022DE39 /* SectionFooter.swift in Sources */,
 				2189885B2BC281510034244C /* SceneDelegate.swift in Sources */,
 				213B76382BE0C5120022DE39 /* TabBarItem.swift in Sources */,
+				219E70EE2BE518A20087D952 /* ParamountViewController.swift in Sources */,
 				21AF35FA2BDA52D4001756F8 /* ADCell.swift in Sources */,
 				2189887B2BC2AE860034244C /* UITextField+Extension.swift in Sources */,
 				2107318E2BDA3DA8004C1E33 /* HomeViewController.swift in Sources */,
