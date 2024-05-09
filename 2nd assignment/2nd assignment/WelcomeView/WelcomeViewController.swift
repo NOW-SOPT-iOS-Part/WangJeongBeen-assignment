@@ -27,6 +27,7 @@ class WelcomeViewController: UIViewController {
     }
     
     @objc func tappedTomainButton() {
-        navigationController?.popViewController(animated: true)
+        let homeVC = HomeViewController()
+        navigationController?.pushViewController(homeVC, animated: true)
     }
 }
