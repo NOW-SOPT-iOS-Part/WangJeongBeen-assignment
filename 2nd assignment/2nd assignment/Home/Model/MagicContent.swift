@@ -5,22 +5,36 @@
 //  Created by 왕정빈 on 2024/04/30.
 //
 
-import UIKit
+import Foundation
 
-struct MagicContent: Hashable {
-    let contentImage: UIImage
-    let contentName: String
+// MARK: - Movie
+struct MagicContent: Codable, Hashable {
+    let boxOfficeResult: BoxOfficeResult
 }
 
-extension MagicContent {
-    static let list = [
-        MustSeenContent(contentImage: UIImage(named: "harrypotter")!, contentName: "해리포터"),
-        MustSeenContent(contentImage: UIImage(named: "yourname")!, contentName: "너의 이름은"),
-        MustSeenContent(contentImage: UIImage(named: "harrypotter")!, contentName: "해리포터2"),
-        MustSeenContent(contentImage: UIImage(named: "doorcheck")!, contentName: "스즈메의 문단속"),
-        MustSeenContent(contentImage: UIImage(named: "harrypotter")!, contentName: "해리포터4"),
-        MustSeenContent(contentImage: UIImage(named: "kingring")!, contentName: "반지의 제왕"),
-        MustSeenContent(contentImage: UIImage(named: "harrypotter")!, contentName: "해리포터6"),
-        MustSeenContent(contentImage: UIImage(named: "signal")!, contentName: "시그널")
-    ]
+// MARK: - BoxOfficeResult
+struct BoxOfficeResult: Codable, Hashable {
+    let boxofficeType, showRange: String
+    let dailyBoxOfficeList: [DailyBoxOfficeList]
+}
+
+// MARK: - DailyBoxOfficeList
+struct DailyBoxOfficeList: Codable, Hashable {
+    let rnum, rank, rankInten: String
+    let rankOldAndNew: RankOldAndNew
+    let movieCD, movieNm, openDt, salesAmt: String
+    let salesShare, salesInten, salesChange, salesAcc: String
+    let audiCnt, audiInten, audiChange, audiAcc: String
+    let scrnCnt, showCnt: String
+
+    enum CodingKeys: String, CodingKey {
+        case rnum, rank, rankInten, rankOldAndNew
+        case movieCD = "movieCd"
+        case movieNm, openDt, salesAmt, salesShare, salesInten, salesChange, salesAcc, audiCnt, audiInten, audiChange, audiAcc, scrnCnt, showCnt
+    }
+}
+
+enum RankOldAndNew: String, Codable {
+    case new = "NEW"
+    case old = "OLD"
 }

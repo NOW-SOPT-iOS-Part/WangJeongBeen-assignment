@@ -23,14 +23,15 @@ class HomeViewController: UIViewController {
     private let popularLiveContents = PopularLiveContent.list
     private let freeContents = FreeContent.list
     private let adContents = ADContent.list
-    private let magicContents = MagicContent.list
-    
+    private var magicContents: [DailyBoxOfficeList] = []
     weak var delegate: ScrollDelegate?
     
     // MARK: - initializer
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        requestMovieName()
         setInitialAttributes()
     }
     
@@ -62,6 +63,10 @@ class HomeViewController: UIViewController {
             case let popularLiveContent as PopularLiveContent:
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PopularLiveCell", for: indexPath) as? PopularLiveCell else { return UICollectionViewCell() }
                 cell.dataBind(popularLiveContent)
+                return cell
+            case let magicContent as DailyBoxOfficeList:
+                guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SeriesContentCell", for: indexPath) as? SeriesContentCell else { return UICollectionViewCell() }
+                cell.magicDataBind(magicContent)
                 return cell
             case let adContent as ADContent:
                 guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ADCell", for: indexPath) as? ADCell else { return UICollectionViewCell() }
@@ -107,15 +112,14 @@ class HomeViewController: UIViewController {
     }
     
     private func putsnapshotData() {
-        var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
-        snapshot.appendSections(Section.allCases)
-        snapshot.appendItems(mainContents, toSection: .Main)
-        snapshot.appendItems(mustSeenContents, toSection: .MustSeen)
-        snapshot.appendItems(popularLiveContents, toSection: .PopularLive)
-        snapshot.appendItems(freeContents, toSection: .FreeContent)
-        snapshot.appendItems(adContents, toSection: .AD)
-        snapshot.appendItems(magicContents, toSection: .MagicContent)
-        dataSource.apply(snapshot)
+//        var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
+//        snapshot.appendSections(Section.allCases)
+//        snapshot.appendItems(mainContents, toSection: .Main)
+//        snapshot.appendItems(mustSeenContents, toSection: .MustSeen)
+//        snapshot.appendItems(popularLiveContents, toSection: .PopularLive)
+//        snapshot.appendItems(freeContents, toSection: .FreeContent)
+//        snapshot.appendItems(adContents, toSection: .AD)
+//        dataSource.apply(snapshot)
     }
 }
 
@@ -125,5 +129,39 @@ extension HomeViewController: UICollectionViewDelegate {
         let navigationIsHidden = scrollView.contentOffset.y > 0
         navigationController?.setNavigationBarHidden(navigationIsHidden, animated: false)
         delegate?.navigationIsHidden(navigationIsHidden)
+    }
+}
+
+// MARK: - Network
+
+extension HomeViewController {
+    func requestMovieName() {
+        MovieService.shared.getMovieName(date: "20240509") { [weak self] response in
+            guard let self = self else { return }
+            switch response {
+            case .success(let data):
+                guard let data = data as? MagicContent else { return }
+                self.magicContents = data.boxOfficeResult.dailyBoxOfficeList
+                var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
+                snapshot.appendSections(Section.allCases)
+                snapshot.appendItems(mainContents, toSection: .Main)
+                snapshot.appendItems(mustSeenContents, toSection: .MustSeen)
+                snapshot.appendItems(popularLiveContents, toSection: .PopularLive)
+                snapshot.appendItems(freeContents, toSection: .FreeContent)
+                snapshot.appendItems(adContents, toSection: .AD)
+                snapshot.appendItems(magicContents, toSection: .MagicContent)
+                dataSource.apply(snapshot)
+            case .requestErr:
+                print("요청 오류 입니다")
+            case .decodedErr:
+                print("디코딩 오류 입니다")
+            case .pathErr:
+                print("경로 오류 입니다")
+            case .serverErr:
+                print("서버 오류입니다")
+            case .networkFail:
+                print("네트워크 오류입니다")
+            }
+        }
     }
 }
