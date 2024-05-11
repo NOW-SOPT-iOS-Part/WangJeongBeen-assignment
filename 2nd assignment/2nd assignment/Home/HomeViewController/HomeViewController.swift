@@ -112,14 +112,15 @@ class HomeViewController: UIViewController {
     }
     
     private func putsnapshotData() {
-//        var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
-//        snapshot.appendSections(Section.allCases)
-//        snapshot.appendItems(mainContents, toSection: .Main)
-//        snapshot.appendItems(mustSeenContents, toSection: .MustSeen)
-//        snapshot.appendItems(popularLiveContents, toSection: .PopularLive)
-//        snapshot.appendItems(freeContents, toSection: .FreeContent)
-//        snapshot.appendItems(adContents, toSection: .AD)
-//        dataSource.apply(snapshot)
+        var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
+        snapshot.appendSections(Section.allCases)
+        snapshot.appendItems(mainContents, toSection: .Main)
+        snapshot.appendItems(mustSeenContents, toSection: .MustSeen)
+        snapshot.appendItems(popularLiveContents, toSection: .PopularLive)
+        snapshot.appendItems(freeContents, toSection: .FreeContent)
+        snapshot.appendItems(adContents, toSection: .AD)
+        snapshot.appendItems(magicContents, toSection: .MagicContent)
+        dataSource.apply(snapshot)
     }
 }
 
@@ -142,15 +143,9 @@ extension HomeViewController {
             case .success(let data):
                 guard let data = data as? MagicContent else { return }
                 self.magicContents = data.boxOfficeResult.dailyBoxOfficeList
-                var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
-                snapshot.appendSections(Section.allCases)
-                snapshot.appendItems(mainContents, toSection: .Main)
-                snapshot.appendItems(mustSeenContents, toSection: .MustSeen)
-                snapshot.appendItems(popularLiveContents, toSection: .PopularLive)
-                snapshot.appendItems(freeContents, toSection: .FreeContent)
-                snapshot.appendItems(adContents, toSection: .AD)
-                snapshot.appendItems(magicContents, toSection: .MagicContent)
-                dataSource.apply(snapshot)
+                DispatchQueue.main.async {
+                    self.putsnapshotData()
+                }
             case .requestErr:
                 print("요청 오류 입니다")
             case .decodedErr:
