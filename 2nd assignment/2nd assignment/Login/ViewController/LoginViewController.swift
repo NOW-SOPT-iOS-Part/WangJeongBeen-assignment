@@ -34,7 +34,13 @@ class LoginViewController: UIViewController {
     
     // MARK: - set loginButton
     private func setLoginButton() {
-        loginView.loginButton.addTarget(self, action: #selector(tappedLoginButton), for: .touchUpInside)
+        loginView.loginButton.rx.tap
+            .bind { [weak self] _ in
+                guard let self else { return }
+                guard let idText = self.loginView.idTextField.text else { return }
+                self.viewModel.checkValidity(emailID: idText)
+            }
+            .disposed(by: disposeBag)
         
         viewModel.isValidEmail
             .subscribe { [weak self] isValid in
@@ -47,11 +53,6 @@ class LoginViewController: UIViewController {
                 }
             }
             .disposed(by: disposeBag)
-    }
-    
-    @objc func tappedLoginButton() {
-        guard let idText = loginView.idTextField.text else { return }
-        viewModel.checkValidity(emailID: idText)
     }
     
     private func pushToWelcomViewController() {
@@ -84,23 +85,25 @@ class LoginViewController: UIViewController {
     }
     
     // MARK: - set createNickName
-    private func createNickName() {
-        loginView.createNickNameButton.addTarget(self, action: #selector(showModalView), for: .touchUpInside)
-    }
     
-    @objc private func showModalView() {
-        let createNickNameVC = CreateNickNameViewController()
-        
-        if let sheet = createNickNameVC.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-        }
-        
-        createNickNameVC.dataBind = { [weak self] nickName in
-            guard let self = self else { return }
-            self.viewModel.nickName = nickName
-        }
-        
-        self.present(createNickNameVC, animated: true)
+    private func createNickName() {
+        loginView.createNickNameButton.rx.tap
+            .bind { [weak self] _ in
+                guard let self else { return }
+                let createNickNameVC = CreateNickNameViewController()
+                
+                if let sheet = createNickNameVC.sheetPresentationController {
+                    sheet.detents = [.medium(), .large()]
+                }
+                
+                createNickNameVC.dataBind = { [weak self] nickName in
+                    guard let self = self else { return }
+                    self.viewModel.nickName = nickName
+                }
+                
+                self.present(createNickNameVC, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func toMakeNickNameAlert() {
@@ -116,13 +119,37 @@ class LoginViewController: UIViewController {
     }
     
     private func setAdditionalTextFieldSetting() {
-        let eyeButton = loginView.passwordEyeButton
-        let clearButtonForID = loginView.clearTextButtonForID
-        let clearButtonForPW = loginView.clearTextButtonForPW
+        loginView.clearTextButtonForID.rx.tap
+            .bind { [weak self] in
+                guard let self else { return }
+                loginView.idTextField.text = ""
+                textFieldDidChangeSelection(loginView.idTextField)
+            }
+            .disposed(by: disposeBag)
         
-        clearButtonForID.addTarget(self, action: #selector(tappedClearButtonForID), for: .touchUpInside)
-        clearButtonForPW.addTarget(self, action: #selector(tappedClearButtonForPW), for: .touchUpInside)
-        eyeButton.addTarget(self, action: #selector(tappedEyeButton), for: .touchUpInside)
+        loginView.clearTextButtonForPW.rx.tap
+            .bind { [weak self] in
+                guard let self else { return }
+                loginView.passwordField.text = ""
+                textFieldDidChangeSelection(loginView.passwordField)
+            }
+            .disposed(by: disposeBag)
+        
+        loginView.passwordEyeButton.rx.tap
+            .bind { [weak self] in
+                guard let self else { return }
+                let eyeButton = self.loginView.passwordEyeButton
+                let passwordField = self.loginView.passwordField
+                
+                if passwordField.isSecureTextEntry == true {
+                    eyeButton.setImage(UIImage.init(systemName: "eye"), for: .normal)
+                    passwordField.isSecureTextEntry = false
+                } else {
+                    eyeButton.setImage(UIImage.init(systemName: "eye.slash"), for: .normal)
+                    passwordField.isSecureTextEntry = true
+                }
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -171,29 +198,6 @@ extension LoginViewController: UITextFieldDelegate {
         loginView.clearTextButtonForID.isHidden = isIdEmpty
         loginView.clearTextButtonForPW.isHidden = isPasswordEmpty
         loginView.passwordEyeButton.isHidden = isPasswordEmpty
-    }
-    
-    @objc func tappedEyeButton() {
-        let eyeButton = loginView.passwordEyeButton
-        let passwordField = loginView.passwordField
-        
-        if passwordField.isSecureTextEntry == true {
-            eyeButton.setImage(UIImage.init(systemName: "eye"), for: .normal)
-            passwordField.isSecureTextEntry = false
-        } else {
-            eyeButton.setImage(UIImage.init(systemName: "eye.slash"), for: .normal)
-            passwordField.isSecureTextEntry = true
-        }
-    }
-    
-    @objc func tappedClearButtonForID() {
-        loginView.idTextField.text = ""
-        textFieldDidChangeSelection(loginView.idTextField)
-    }
-    
-    @objc func tappedClearButtonForPW() {
-        loginView.passwordField.text = ""
-        textFieldDidChangeSelection(loginView.passwordField)
     }
     
     func highlightBorder(_ textField: UITextField, color: UIColor) {
