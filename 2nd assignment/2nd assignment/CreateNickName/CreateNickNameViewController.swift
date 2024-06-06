@@ -6,13 +6,14 @@
 //
 
 import UIKit
+import RxSwift
 
 class CreateNickNameViewController: UIViewController {
     
     // MARK: - properties
     private let createNickNameView = CreateNickNameView()
     
-    var dataBind: ((String) -> Void)?
+    var nickNameBind = PublishSubject<String>()
     
     // MARK: - initialize
     override func viewDidLoad() {
@@ -41,7 +42,7 @@ class CreateNickNameViewController: UIViewController {
     
     @objc private func tappedSaveButton() {
         let nickName = createNickNameView.nickNameTextField.text!
-        dataBind?(nickName)
+        nickNameBind.onNext(nickName)
         dismiss(animated: true)
     }
     

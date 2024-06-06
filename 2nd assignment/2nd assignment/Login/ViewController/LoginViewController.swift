@@ -95,11 +95,12 @@ class LoginViewController: UIViewController {
                 if let sheet = createNickNameVC.sheetPresentationController {
                     sheet.detents = [.medium(), .large()]
                 }
-                
-                createNickNameVC.dataBind = { [weak self] nickName in
-                    guard let self = self else { return }
-                    self.viewModel.nickName = nickName
-                }
+
+                createNickNameVC.nickNameBind
+                    .subscribe { nickName in
+                        self.viewModel.nickName = nickName
+                    }
+                    .disposed(by: disposeBag)
                 
                 self.present(createNickNameVC, animated: true)
             }
