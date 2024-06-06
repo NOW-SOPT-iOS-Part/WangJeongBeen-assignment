@@ -53,4 +53,9 @@ extension SeriesContentCell {
         contentImage.image = content.contentImage
         contentName.text = content.contentName
     }
+    
+    func magicDataBind(_ content: DailyBoxOfficeList) {
+        contentImage.image = UIImage(systemName: "person")
+        contentName.text = content.movieNm
+    }
 }
