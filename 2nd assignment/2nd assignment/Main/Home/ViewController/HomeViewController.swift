@@ -29,6 +29,7 @@ class HomeViewController: UIViewController {
         
         setInitialAttributes()
         contentsBind()
+        setupRefreshControl()
     }
     
     override func loadView() {
@@ -130,11 +131,23 @@ class HomeViewController: UIViewController {
     }
     
     private func contentsBind() {
-        viewModel.fetchMovieName()
         viewModel.magicContents
+            .distinctUntilChanged()
             .bind(onNext: { [weak self] magicContents in
                 self?.putSnapshotData(contents: magicContents, to: .MagicContent)
+                self?.rootView.homeCollectionView.refreshControl?.endRefreshing()
             })
+            .disposed(by: disposeBag)
+    }
+    
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        rootView.homeCollectionView.refreshControl = refreshControl
+        refreshControl.rx.controlEvent(.valueChanged)
+            .subscribe { [weak self] _ in
+                guard let self else { return }
+                self.viewModel.fetchMovieName()
+            }
             .disposed(by: disposeBag)
     }
 }

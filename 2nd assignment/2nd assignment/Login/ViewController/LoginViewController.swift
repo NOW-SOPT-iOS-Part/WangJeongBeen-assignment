@@ -43,7 +43,7 @@ class LoginViewController: UIViewController {
             .disposed(by: disposeBag)
         
         viewModel.isValidEmail
-            .subscribe { [weak self] isValid in
+            .bind { [weak self] isValid in
                 guard let self else { return }
                 if isValid {
                     pushToWelcomViewController()
