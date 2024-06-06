@@ -6,12 +6,18 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class LoginViewController: UIViewController {
     
-    let loginView = LoginView()
+    // MARK: - Properties
     
-    var nickName: String?
+    private let loginView = LoginView()
+    private let viewModel = LoginViewModel()
+    private let disposeBag = DisposeBag()
+    
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,18 +35,28 @@ class LoginViewController: UIViewController {
     // MARK: - set loginButton
     private func setLoginButton() {
         loginView.loginButton.addTarget(self, action: #selector(tappedLoginButton), for: .touchUpInside)
+        
+        viewModel.isValidEmail
+            .subscribe { [weak self] isValid in
+                guard let self else { return }
+                if isValid {
+                    pushToWelcomViewController()
+                } else {
+                    self.loginView.warningMessage.isHidden = false
+                    self.highlightBorder(loginView.idTextField, color: .red)
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
     @objc func tappedLoginButton() {
-        guard let idText = loginView.idTextField.text,
-              isValidEmail(emailID: idText) else {
-            loginView.warningMessage.isHidden = false
-            highlightBorder(loginView.idTextField, color: .red)
-            return
-        }
-        
+        guard let idText = loginView.idTextField.text else { return }
+        viewModel.checkValidity(emailID: idText)
+    }
+    
+    private func pushToWelcomViewController() {
         let welcomeVC = WelcomeViewController()
-        if let nickName = nickName {
+        if let nickName = viewModel.nickName {
             welcomeVC.welcomeView.welcomeLabel.text = "\(nickName)님 \n 반가워요!"
             navigationController?.navigationBar.tintColor = .white
             navigationController?.navigationBar.topItem?.title = ""
@@ -81,7 +97,7 @@ class LoginViewController: UIViewController {
         
         createNickNameVC.dataBind = { [weak self] nickName in
             guard let self = self else { return }
-            self.nickName = nickName
+            self.viewModel.nickName = nickName
         }
         
         self.present(createNickNameVC, animated: true)
@@ -178,12 +194,6 @@ extension LoginViewController: UITextFieldDelegate {
     @objc func tappedClearButtonForPW() {
         loginView.passwordField.text = ""
         textFieldDidChangeSelection(loginView.passwordField)
-    }
-    
-    private func isValidEmail(emailID: String) -> Bool {
-        let emailRegEx = "[A-Za-z0-9]+@[A-Za-z0-9]+\\.[A-Za-z]{2,64}"
-        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluate(with: emailID)
     }
     
     func highlightBorder(_ textField: UITextField, color: UIColor) {
