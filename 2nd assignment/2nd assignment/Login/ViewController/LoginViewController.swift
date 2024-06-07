@@ -6,12 +6,18 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class LoginViewController: UIViewController {
     
-    let loginView = LoginView()
+    // MARK: - Properties
     
-    var nickName: String?
+    private let loginView = LoginView()
+    private let viewModel = LoginViewModel()
+    private let disposeBag = DisposeBag()
+    
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,19 +34,30 @@ class LoginViewController: UIViewController {
     
     // MARK: - set loginButton
     private func setLoginButton() {
-        loginView.loginButton.addTarget(self, action: #selector(tappedLoginButton), for: .touchUpInside)
+        loginView.loginButton.rx.tap
+            .bind { [weak self] _ in
+                guard let self else { return }
+                guard let idText = self.loginView.idTextField.text else { return }
+                self.viewModel.checkValidity(emailID: idText)
+            }
+            .disposed(by: disposeBag)
+        
+        viewModel.isValidEmail
+            .bind { [weak self] isValid in
+                guard let self else { return }
+                if isValid {
+                    pushToWelcomViewController()
+                } else {
+                    self.loginView.warningMessage.isHidden = false
+                    self.highlightBorder(loginView.idTextField, color: .red)
+                }
+            }
+            .disposed(by: disposeBag)
     }
     
-    @objc func tappedLoginButton() {
-        guard let idText = loginView.idTextField.text,
-              isValidEmail(emailID: idText) else {
-            loginView.warningMessage.isHidden = false
-            highlightBorder(loginView.idTextField, color: .red)
-            return
-        }
-        
+    private func pushToWelcomViewController() {
         let welcomeVC = WelcomeViewController()
-        if let nickName = nickName {
+        if let nickName = viewModel.nickName {
             welcomeVC.welcomeView.welcomeLabel.text = "\(nickName)님 \n 반가워요!"
             navigationController?.navigationBar.tintColor = .white
             navigationController?.navigationBar.topItem?.title = ""
@@ -68,23 +85,26 @@ class LoginViewController: UIViewController {
     }
     
     // MARK: - set createNickName
-    private func createNickName() {
-        loginView.createNickNameButton.addTarget(self, action: #selector(showModalView), for: .touchUpInside)
-    }
     
-    @objc private func showModalView() {
-        let createNickNameVC = CreateNickNameViewController()
-        
-        if let sheet = createNickNameVC.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
-        }
-        
-        createNickNameVC.dataBind = { [weak self] nickName in
-            guard let self = self else { return }
-            self.nickName = nickName
-        }
-        
-        self.present(createNickNameVC, animated: true)
+    private func createNickName() {
+        loginView.createNickNameButton.rx.tap
+            .bind { [weak self] _ in
+                guard let self else { return }
+                let createNickNameVC = CreateNickNameViewController()
+                
+                if let sheet = createNickNameVC.sheetPresentationController {
+                    sheet.detents = [.medium(), .large()]
+                }
+
+                createNickNameVC.nickNameBind
+                    .subscribe { nickName in
+                        self.viewModel.nickName = nickName
+                    }
+                    .disposed(by: disposeBag)
+                
+                self.present(createNickNameVC, animated: true)
+            }
+            .disposed(by: disposeBag)
     }
     
     private func toMakeNickNameAlert() {
@@ -100,13 +120,37 @@ class LoginViewController: UIViewController {
     }
     
     private func setAdditionalTextFieldSetting() {
-        let eyeButton = loginView.passwordEyeButton
-        let clearButtonForID = loginView.clearTextButtonForID
-        let clearButtonForPW = loginView.clearTextButtonForPW
+        loginView.clearTextButtonForID.rx.tap
+            .bind { [weak self] in
+                guard let self else { return }
+                loginView.idTextField.text = ""
+                textFieldDidChangeSelection(loginView.idTextField)
+            }
+            .disposed(by: disposeBag)
         
-        clearButtonForID.addTarget(self, action: #selector(tappedClearButtonForID), for: .touchUpInside)
-        clearButtonForPW.addTarget(self, action: #selector(tappedClearButtonForPW), for: .touchUpInside)
-        eyeButton.addTarget(self, action: #selector(tappedEyeButton), for: .touchUpInside)
+        loginView.clearTextButtonForPW.rx.tap
+            .bind { [weak self] in
+                guard let self else { return }
+                loginView.passwordField.text = ""
+                textFieldDidChangeSelection(loginView.passwordField)
+            }
+            .disposed(by: disposeBag)
+        
+        loginView.passwordEyeButton.rx.tap
+            .bind { [weak self] in
+                guard let self else { return }
+                let eyeButton = self.loginView.passwordEyeButton
+                let passwordField = self.loginView.passwordField
+                
+                if passwordField.isSecureTextEntry == true {
+                    eyeButton.setImage(UIImage.init(systemName: "eye"), for: .normal)
+                    passwordField.isSecureTextEntry = false
+                } else {
+                    eyeButton.setImage(UIImage.init(systemName: "eye.slash"), for: .normal)
+                    passwordField.isSecureTextEntry = true
+                }
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -155,35 +199,6 @@ extension LoginViewController: UITextFieldDelegate {
         loginView.clearTextButtonForID.isHidden = isIdEmpty
         loginView.clearTextButtonForPW.isHidden = isPasswordEmpty
         loginView.passwordEyeButton.isHidden = isPasswordEmpty
-    }
-    
-    @objc func tappedEyeButton() {
-        let eyeButton = loginView.passwordEyeButton
-        let passwordField = loginView.passwordField
-        
-        if passwordField.isSecureTextEntry == true {
-            eyeButton.setImage(UIImage.init(systemName: "eye"), for: .normal)
-            passwordField.isSecureTextEntry = false
-        } else {
-            eyeButton.setImage(UIImage.init(systemName: "eye.slash"), for: .normal)
-            passwordField.isSecureTextEntry = true
-        }
-    }
-    
-    @objc func tappedClearButtonForID() {
-        loginView.idTextField.text = ""
-        textFieldDidChangeSelection(loginView.idTextField)
-    }
-    
-    @objc func tappedClearButtonForPW() {
-        loginView.passwordField.text = ""
-        textFieldDidChangeSelection(loginView.passwordField)
-    }
-    
-    private func isValidEmail(emailID: String) -> Bool {
-        let emailRegEx = "[A-Za-z0-9]+@[A-Za-z0-9]+\\.[A-Za-z]{2,64}"
-        let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegEx)
-        return emailTest.evaluate(with: emailID)
     }
     
     func highlightBorder(_ textField: UITextField, color: UIColor) {

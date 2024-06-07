@@ -17,22 +17,19 @@ class HomeViewController: UIViewController {
     // MARK: - properties
     private let rootView = HomeView()
     private var dataSource: UICollectionViewDiffableDataSource<Section, AnyHashable>!
+    private let viewModel = HomeViewModel()
 //    private let currentBannerPage = PublishSubject<Int>()
-    private let mainContents = MainContent.list
-    private let mustSeenContents = MustSeenContent.list
-    private let popularLiveContents = PopularLiveContent.list
-    private let freeContents = FreeContent.list
-    private let adContents = ADContent.list
-    private var magicContents: [DailyBoxOfficeList] = []
     weak var delegate: ScrollDelegate?
+    private var disposeBag = DisposeBag()
     
     // MARK: - initializer
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        requestMovieName()
         setInitialAttributes()
+        contentsBind()
+        setupRefreshControl()
     }
     
     override func loadView() {
@@ -108,19 +105,50 @@ class HomeViewController: UIViewController {
             }
         }
         
-        putsnapshotData()
+        putSnapshotData()
     }
     
-    private func putsnapshotData() {
+    private func putSnapshotData(contents newContents: [AnyHashable]? = nil, to section: Section? = nil) {
         var snapshot = NSDiffableDataSourceSnapshot<Section, AnyHashable>()
         snapshot.appendSections(Section.allCases)
-        snapshot.appendItems(mainContents, toSection: .Main)
-        snapshot.appendItems(mustSeenContents, toSection: .MustSeen)
-        snapshot.appendItems(popularLiveContents, toSection: .PopularLive)
-        snapshot.appendItems(freeContents, toSection: .FreeContent)
-        snapshot.appendItems(adContents, toSection: .AD)
-        snapshot.appendItems(magicContents, toSection: .MagicContent)
+        snapshot.appendItems(viewModel.mainContents, toSection: .Main)
+        snapshot.appendItems(viewModel.mustSeenContents, toSection: .MustSeen)
+        snapshot.appendItems(viewModel.popularLiveContents, toSection: .PopularLive)
+        snapshot.appendItems(viewModel.freeContents, toSection: .FreeContent)
+        snapshot.appendItems(viewModel.adContents, toSection: .AD)
+        
+        guard let section = section,
+              let newContents = newContents,
+              snapshot.sectionIdentifiers.contains(section)
+        else {
+            dataSource.apply(snapshot)
+            return
+        }
+        snapshot.deleteItems(snapshot.itemIdentifiers(inSection: section))
+        snapshot.appendItems(newContents, toSection: section)
+        
         dataSource.apply(snapshot)
+    }
+    
+    private func contentsBind() {
+        viewModel.magicContents
+            .distinctUntilChanged()
+            .bind(onNext: { [weak self] magicContents in
+                self?.putSnapshotData(contents: magicContents, to: .MagicContent)
+                self?.rootView.homeCollectionView.refreshControl?.endRefreshing()
+            })
+            .disposed(by: disposeBag)
+    }
+    
+    private func setupRefreshControl() {
+        let refreshControl = UIRefreshControl()
+        rootView.homeCollectionView.refreshControl = refreshControl
+        refreshControl.rx.controlEvent(.valueChanged)
+            .subscribe { [weak self] _ in
+                guard let self else { return }
+                self.viewModel.fetchMovieName()
+            }
+            .disposed(by: disposeBag)
     }
 }
 
@@ -130,33 +158,5 @@ extension HomeViewController: UICollectionViewDelegate {
         let navigationIsHidden = scrollView.contentOffset.y > 0
         navigationController?.setNavigationBarHidden(navigationIsHidden, animated: false)
         delegate?.navigationIsHidden(navigationIsHidden)
-    }
-}
-
-// MARK: - Network
-
-extension HomeViewController {
-    func requestMovieName() {
-        MovieService.shared.getMovieName(date: "20240509") { [weak self] response in
-            guard let self = self else { return }
-            switch response {
-            case .success(let data):
-                guard let data = data as? MagicContent else { return }
-                self.magicContents = data.boxOfficeResult.dailyBoxOfficeList
-                DispatchQueue.main.async {
-                    self.putsnapshotData()
-                }
-            case .requestErr:
-                print("요청 오류 입니다")
-            case .decodedErr:
-                print("디코딩 오류 입니다")
-            case .pathErr:
-                print("경로 오류 입니다")
-            case .serverErr:
-                print("서버 오류입니다")
-            case .networkFail:
-                print("네트워크 오류입니다")
-            }
-        }
     }
 }
