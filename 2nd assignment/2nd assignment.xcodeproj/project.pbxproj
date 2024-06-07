@@ -187,11 +187,44 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		217DAD2E2BC44DE50024BEC2 /* CreateNickName */ = {
+		21475C702C12E49D007DE0F7 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				217DAD2C2BC44DD20024BEC2 /* CreateNickNameViewController.swift */,
+				21475C712C12E4A9007DE0F7 /* View */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		21475C712C12E4A9007DE0F7 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				2109AB5A2BC44EB4006EE1E5 /* CreateNickNameView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		21475C722C12E4B4007DE0F7 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				218988752BC2AC9B0034244C /* WelcomeViewController.swift */,
+				21475C732C12E4C1007DE0F7 /* View */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		21475C732C12E4C1007DE0F7 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				218988782BC2ACB80034244C /* WelcomeView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		217DAD2E2BC44DE50024BEC2 /* CreateNickName */ = {
+			isa = PBXGroup;
+			children = (
+				21475C702C12E49D007DE0F7 /* ViewController */,
 			);
 			path = CreateNickName;
 			sourceTree = "<group>";
@@ -242,8 +275,7 @@
 		218988772BC2ACA10034244C /* WelcomeView */ = {
 			isa = PBXGroup;
 			children = (
-				218988752BC2AC9B0034244C /* WelcomeViewController.swift */,
-				218988782BC2ACB80034244C /* WelcomeView.swift */,
+				21475C722C12E4B4007DE0F7 /* ViewController */,
 			);
 			path = WelcomeView;
 			sourceTree = "<group>";
